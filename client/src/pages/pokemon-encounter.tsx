@@ -9,6 +9,7 @@ import PokeballSelector from '../components/pokeball-selector/index.tsx';
 interface PokemonEncounterProps {
   setCurrentEncounter: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
 function PokemonEncounter(props: PokemonEncounterProps) {
   const { setCurrentEncounter } = props;
   const [encounter, setEncounter] = useState<IRandomPokemonEncounter | null>(null);
@@ -37,18 +38,21 @@ function PokemonEncounter(props: PokemonEncounterProps) {
   }
 
   return (
-    <section style={{
+    <section style={ {
       background: 'black',
       position: 'relative',
       width: '100%',
       height: '100%',
-    }}>
+    } }>
       { encounter ? (
-        <PokemonSprite
-          pokemon={ encounter }
-          attemptingCatch={ attemptingCatch }
-          pokeball={ currentPokeball }
-        />
+        <>
+          <p>{ encounter.name } lvl{encounter.level}</p>
+          <PokemonSprite
+            pokemon={ encounter }
+            attemptingCatch={ attemptingCatch }
+            pokeball={ currentPokeball }
+          />
+        </>
       ) : null }
       {
         pokeballs && encounter ? (

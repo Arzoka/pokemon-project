@@ -10,6 +10,7 @@ Socketmon is a project that I created simply because I wanted to learn more abou
 - Shiny system
 - Stat system
 - Pokemon catching system
+- Movement system
 
 ## TODO
 
