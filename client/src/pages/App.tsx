@@ -1,74 +1,80 @@
-import { useState, useEffect } from 'react';
-import getRandomEncounter from '../helpers/pokemon/getRandomEncounter';
-import { IRandomPokemonEncounter } from '../@types/CustomPokemonTypes/Encounters/RandomEncounter';
-import PokemonSprite from '../components/pokemon-sprite/index.tsx';
-import getPokeballs from '../helpers/pokeballs/getPokeballs.ts';
-import { IReceivedPokeball } from '../@types/CustomPokemonTypes/Pokeballs/IPokeball.ts';
-import PokeballSelector from '../components/pokeball-selector/index.tsx';
+import { useEffect, useState } from 'react';
+import Player from '../entities/Player.ts';
+import PlayerSprite from '../components/player-sprite';
+import PokemonGameContainer from '../components/pokemon-game-container';
+import getRandomEnvironment from '../helpers/environment/getRandomEnvironment.ts';
+import calculateEncounter from '../helpers/environment/algorithms/calculateEncounters.ts';
+import PokemonEncounter from './pokemon-encounter.tsx';
 
 function App() {
-  const [encounter, setEncounter] = useState<IRandomPokemonEncounter | null>(null);
-  const [pokeballs, setPokeballs] = useState<IReceivedPokeball[]>([]);
-  const [currentPokeball, setCurrentPokeball] = useState<IReceivedPokeball | null>(null);
-  const [attemptingCatch, setAttemptingCatch] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [playerState, setPlayerState] = useState({
+    x: 0,
+    y: 0,
+    direction: 'down',
+    canEncounter: false,
+  });
+
+  const [environment] = useState(getRandomEnvironment());
+  const [currentEncounter, setCurrentEncounter] = useState(false);
+
+  const player = new Player(environment);
+
+  // const xCells = 15;
+  // const yCells = 11;
+  // const grid = Array.from({length: yCells}, () => Array(xCells).fill({
+  //
+  // }));
+  //
+  // console.log(grid);
 
   useEffect(() => {
-    console.log(encounter);
-  }, [encounter]);
+    function handleKeyDown(e: KeyboardEvent) {
+      if (currentEncounter) { return }
 
-  useEffect(() => {
-    (async () => {
-      const pokeballs = await getPokeballs();
-      if (pokeballs) {
-        setPokeballs(pokeballs);
-        setCurrentPokeball(pokeballs[0]);
+      if (e.key === 'ArrowUp' || e.key === 'w') {
+        player.movePlayer('up');
       }
-    })();
+      if (e.key === 'ArrowDown' || e.key === 's') {
+        player.movePlayer('down');
+      }
+      if (e.key === 'ArrowLeft' || e.key === 'a') {
+        player.movePlayer('left');
+      }
+      if (e.key === 'ArrowRight' || e.key === 'd') {
+        player.movePlayer('right');
+      }
+      setPlayerState({ x: player.x, y: player.y, direction: player.direction, canEncounter: player.canEncounter });
+    }
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, []);
 
+  useEffect(() => {
+    if (!playerState.canEncounter || currentEncounter) { return }
 
-  if (loading) {
-    return (<h1>Loading...</h1>);
-  }
+    setCurrentEncounter(calculateEncounter);
+
+  }, [playerState]);
 
   return (
     <>
-      { encounter ? (
-        <PokemonSprite
-          pokemon={ encounter }
-          attemptingCatch={ attemptingCatch }
-          pokeball={ currentPokeball }
-        />
-      ) : null }
-
-      <button onClick={
-        async () => {
-          const randomEncounter = await getRandomEncounter(setLoading);
-          if (randomEncounter) {
-            setEncounter(randomEncounter);
-          }
-        } }>
-        Get random encounter
-      </button>
-      {
-        pokeballs && encounter ? (
-          <PokeballSelector pokeballs={ pokeballs }
-            currentPokeball={ currentPokeball }
-            setCurrentPokeball={ setCurrentPokeball }
-            attemptingCatch={ attemptingCatch }
-            setAttemptingCatch={ setAttemptingCatch }
-            encounter={ encounter }
+      <PokemonGameContainer environment={ environment }>
+        {currentEncounter ? (
+          <PokemonEncounter
+          setCurrentEncounter={ setCurrentEncounter }
           />
-        ) : null
-      }
-      <button onClick={() => {
-      console.log(encounter)
-      }}>
-        Log encounter
-      </button>
+        ) : (
+          <PlayerSprite playerState={ playerState } />
+        )}
+      </PokemonGameContainer>
+
     </>
   );
+
 }
 
 export default App;
