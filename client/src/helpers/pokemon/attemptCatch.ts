@@ -4,23 +4,23 @@ import { IReceivedPokeball } from '../../@types/CustomPokemonTypes/Pokeballs/IPo
 import React from 'react';
 
 function attemptCatch(
-  encounter: IRandomPokemonEncounter,
-  pokeball: IReceivedPokeball,
-  setAttemptingCatch: React.Dispatch<React.SetStateAction<boolean>>,
-  setCurrentEncounter: React.Dispatch<React.SetStateAction<boolean>>
+	encounter: IRandomPokemonEncounter,
+	pokeball: IReceivedPokeball,
+	setAttemptingCatch: React.Dispatch<React.SetStateAction<boolean>>,
+	setCurrentEncounter: React.Dispatch<React.SetStateAction<boolean>>,
 ) {
-  const catchTime = Math.random() * 3000 + 1000;
+	const catchTime = Math.random() * 3000 + 1000;
 
-  setAttemptingCatch(true);
-  const caught = calculatePokemonCatch(encounter, pokeball);
-  setTimeout(() => {
-    setAttemptingCatch(false);
-    encounter.caught = caught;
-    if (caught) {
-      alert('Succesfully caught ' + encounter.name + '!');
-      setCurrentEncounter(false);
-    }
-  }, catchTime);
+	setAttemptingCatch(true);
+	const caught = calculatePokemonCatch(encounter, pokeball);
+	setTimeout(() => {
+		setAttemptingCatch(false);
+		encounter.caught = caught;
+		if (caught) {
+			alert('Succesfully caught ' + encounter.name + '!');
+			setCurrentEncounter(false);
+		}
+	}, catchTime);
 
 }
 

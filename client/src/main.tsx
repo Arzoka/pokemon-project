@@ -3,5 +3,5 @@ import App from './pages/App.tsx';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <App />,
+	<App />,
 );
