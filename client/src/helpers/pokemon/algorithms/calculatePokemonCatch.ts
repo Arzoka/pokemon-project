@@ -10,6 +10,7 @@ function calculatePokemonCatch(pokemon: IRandomPokemonEncounter, pokeball: IRece
   // TODO: Replace 1 with status effect multiplier
   const a = ((3 * pokemon.stats.hp - 2 * pokemon.current_hp) / (3 * pokemon.stats.hp)) * pokemonCatchRate * pokeballCatchRateMultiplier * 1;
   const rng = Math.random() * 255;
+  console.log(a,rng);
   return rng < a;
 
 }

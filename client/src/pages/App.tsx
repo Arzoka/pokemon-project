@@ -16,6 +16,12 @@ function App() {
 
   const [environment] = useState(getRandomEnvironment());
   const [currentEncounter, setCurrentEncounter] = useState(false);
+  const [keyState, setKeyState] = useState({
+    up: false,
+    down: false,
+    left: false,
+    right: false,
+  });
 
   const player = new Player(environment);
 
@@ -28,30 +34,44 @@ function App() {
   // console.log(grid);
 
   useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if (currentEncounter) { return }
+    const keyState: {[key: string]: boolean} = {};
+    window.addEventListener('keydown', function(e){
+      keyState[e.key.toLowerCase()] = true;
+    }, true);
+    window.addEventListener('keyup', function(e){
+      keyState[e.key.toLowerCase()] = false;
+    }, true);
 
-      if (e.key === 'ArrowUp' || e.key === 'w') {
-        player.movePlayer('up');
-      }
-      if (e.key === 'ArrowDown' || e.key === 's') {
-        player.movePlayer('down');
-      }
-      if (e.key === 'ArrowLeft' || e.key === 'a') {
-        player.movePlayer('left');
-      }
-      if (e.key === 'ArrowRight' || e.key === 'd') {
-        player.movePlayer('right');
-      }
-      setPlayerState({ x: player.x, y: player.y, direction: player.direction, canEncounter: player.canEncounter });
+    function gameLoop() {
+      if (keyState['arrow-left'] || keyState['a']) { player.movePlayer('left') }
+      if (keyState['arrow-right'] || keyState['d']){ player.movePlayer('right') }
+      if (keyState['arrow-up'] || keyState['w']){ player.movePlayer('up') }
+      if (keyState['arrow-left'] || keyState['s']){ player.movePlayer('down') }
+      player.isRunning = keyState['shift'];
+
+
+      setPlayerState({
+        x: player.x,
+        y: player.y,
+        direction: player.direction,
+        canEncounter: player.canEncounter,
+      });
+
+      setTimeout(gameLoop, player.isRunning ? 100 : 200);
     }
 
-    window.addEventListener('keydown', handleKeyDown);
+    gameLoop();
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
+      window.removeEventListener('keydown', function(e){
+        keyState[e.key.toLowerCase()] = true;
+      }, true);
+      window.removeEventListener('keyup', function(e){
+        keyState[e.key.toLowerCase()] = false;
+      }, true);
+    }
   }, []);
+
 
   useEffect(() => {
     if (!playerState.canEncounter || currentEncounter) { return }
