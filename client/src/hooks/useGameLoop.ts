@@ -1,21 +1,26 @@
-import {
-	useContext,
-	useEffect,
-	useRef,
-} from 'react';
-import {
-	EnvironmentContext,
-} from '../contexts/EnvironmentContext.tsx';
-import {
-	PlayerContext,
-} from '../contexts/PlayerContext.tsx';
+import { useContext, useEffect, useRef } from 'react';
+import { EnvironmentContext } from '../contexts/EnvironmentContext.tsx';
+import { PlayerContext } from '../contexts/PlayerContext.tsx';
 
 const useGameLoop = () => {
-	const { Player, movePlayer } = useContext(PlayerContext);
+	const {
+		Player,
+		movePlayer,
+	} = useContext(PlayerContext);
 	const { currentEncounter } = useContext(EnvironmentContext);
 	const activeLoop = useRef<any>();
-	const keyState = useRef<{ [key: string]: boolean }>({
-		'arrow-left': false, 'arrow-right': false, 'arrow-up': false, 'arrow-down': false, 'a': false, 'd': false, 'w': false, 's': false, 'shift': false,
+	const keyState = useRef<{
+		[key: string]: boolean
+	}>({
+		'arrow-left': false,
+		'arrow-right': false,
+		'arrow-up': false,
+		'arrow-down': false,
+		'a': false,
+		'd': false,
+		'w': false,
+		's': false,
+		'shift': false,
 	});
 
 	useEffect(() => {

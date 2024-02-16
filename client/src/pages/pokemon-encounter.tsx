@@ -1,21 +1,10 @@
-import {
-	useEffect,
-	useState,
-} from 'react';
-import {
-	IRandomPokemonEncounter,
-} from '../@types/CustomPokemonTypes/Encounters/RandomEncounter.ts';
-import {
-	IReceivedPokeball,
-} from '../@types/CustomPokemonTypes/Pokeballs/IPokeball.ts';
-import getPokeballs
-	from '../helpers/pokeballs/getPokeballs.ts';
-import PokemonSprite
-	from '../components/pokemon-sprite/index.tsx';
-import getRandomEncounter
-	from '../helpers/pokemon/getRandomEncounter.ts';
-import PokeballSelector
-	from '../components/pokeball-selector/index.tsx';
+import { useEffect, useState } from 'react';
+import { IRandomPokemonEncounter } from '../@types/CustomPokemonTypes/Encounters/RandomEncounter.ts';
+import { IReceivedPokeball } from '../@types/CustomPokemonTypes/Pokeballs/IPokeball.ts';
+import getPokeballs from '../helpers/pokeballs/getPokeballs.ts';
+import PokemonSprite from '../components/pokemon-sprite/index.tsx';
+import getRandomEncounter from '../helpers/pokemon/getRandomEncounter.ts';
+import PokeballSelector from '../components/pokeball-selector/index.tsx';
 
 function PokemonEncounter() {
 	const [encounter, setEncounter] = useState<IRandomPokemonEncounter | null>(null);
@@ -25,37 +14,45 @@ function PokemonEncounter() {
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
-		(async () => {
-			const pokeballs = await getPokeballs();
-			const encounter = await getRandomEncounter(setLoading);
-			if (pokeballs) {
-				setPokeballs(pokeballs);
-				setCurrentPokeball(pokeballs[0]);
+		(
+			async () => {
+				const pokeballs = await getPokeballs();
+				const encounter = await getRandomEncounter(setLoading);
+				if (pokeballs) {
+					setPokeballs(pokeballs);
+					setCurrentPokeball(pokeballs[0]);
+				}
+				if (encounter) {
+					setEncounter(encounter);
+				}
 			}
-			if (encounter) {
-				setEncounter(encounter);
-			}
-		})();
+		)();
 	}, []);
 
 
 	if (loading) {
 		return (
-			<h1>Loading...</h1>);
+			<h1>Loading...</h1>
+		);
 	}
 
 	return (
 		<section style={ {
-			background: 'black', position: 'relative', width: '100%', height: '100%',
+			background: 'black',
+			position: 'relative',
+			width: '100%',
+			height: '100%',
 		} }>
-			{ encounter ? (<>
-				<p>{ encounter.name } lvl{ encounter.level }</p>
-				<PokemonSprite
-					pokemon={ encounter }
-					attemptingCatch={ attemptingCatch }
-					pokeball={ currentPokeball }
-				/>
-			</>) : null }
+			{ encounter ? (
+				<>
+					<p>{ encounter.name } lvl{ encounter.level }</p>
+					<PokemonSprite
+						pokemon={ encounter }
+						attemptingCatch={ attemptingCatch }
+						pokeball={ currentPokeball }
+					/>
+				</>
+			) : null }
 			{ pokeballs && encounter ? (
 				<PokeballSelector
 					pokeballs={ pokeballs }
@@ -64,8 +61,10 @@ function PokemonEncounter() {
 					attemptingCatch={ attemptingCatch }
 					setAttemptingCatch={ setAttemptingCatch }
 					encounter={ encounter }
-				/>) : null }
-		</section>);
+				/>
+			) : null }
+		</section>
+	);
 }
 
 export default PokemonEncounter;

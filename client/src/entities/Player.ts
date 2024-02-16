@@ -1,6 +1,4 @@
-import {
-	EnvironmentTile,
-} from '../@types/CustomPokemonTypes/Environment/tile.ts';
+import { EnvironmentTile } from '../@types/CustomPokemonTypes/Environment/tile.ts';
 
 class Player {
 	public x: number;
@@ -11,7 +9,9 @@ class Player {
 	public moving: boolean;
 	public environment: EnvironmentTile[][];
 	public lastEnvironmentTile: {
-		x: number, y: number, encounterCategory: string | null
+		x: number,
+		y: number,
+		encounterCategory: string | null
 	};
 	public canEncounter: boolean;
 	public isRunning: boolean;
@@ -23,7 +23,11 @@ class Player {
 		this.stepSize = player ? player.stepSize : 50;
 		this.speed = player ? player.speed : 1;
 		this.moving = player ? player.moving : false;
-		this.lastEnvironmentTile = player ? player.lastEnvironmentTile : { x: 0, y: 0, encounterCategory: null };
+		this.lastEnvironmentTile = player ? player.lastEnvironmentTile : {
+			x: 0,
+			y: 0,
+			encounterCategory: null,
+		};
 		this.canEncounter = player ? player.canEncounter : false;
 		this.isRunning = player ? player.isRunning : false;
 		this.environment = environment;

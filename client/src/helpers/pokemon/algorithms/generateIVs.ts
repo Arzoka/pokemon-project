@@ -7,7 +7,9 @@ function generateIVs() {
 	} = {};
 
 	values.forEach(value => {
-		IVs[value] = Math.floor(Math.random() * (maxIV + 1));
+		IVs[value] = Math.floor(Math.random() * (
+			maxIV + 1
+		));
 	});
 
 	return IVs;

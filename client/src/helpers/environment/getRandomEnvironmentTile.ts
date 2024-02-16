@@ -1,6 +1,4 @@
-import {
-	AVAILABLE_TILES,
-} from '../../constants/index.ts';
+import { AVAILABLE_TILES } from '../../constants/index.ts';
 
 function getRandomEnvironmentTile() {
 	return {

@@ -1,12 +1,10 @@
-import React from 'react';
-import { EnvironmentTile } from '../../@types/CustomPokemonTypes/Environment/tile.ts';
+import { ReactNode, useContext } from 'react';
+import { EnvironmentContext } from '../../contexts/EnvironmentContext.tsx';
 
-interface PokemonGameContainerProps {
-	environment: EnvironmentTile[][];
-	children: React.ReactNode;
-}
-
-const PokemonGameContainer = (props: PokemonGameContainerProps) => {
+const PokemonGameContainer = ({ children }: {
+	children: ReactNode
+}) => {
+	const { environment } = useContext(EnvironmentContext);
 	return (
 		<div style={ {
 			position: 'relative',
@@ -26,7 +24,8 @@ const PokemonGameContainer = (props: PokemonGameContainerProps) => {
 				gridTemplateColumns: 'repeat(15, 1fr)',
 				gridTemplateRows: 'repeat(11, 1fr)',
 			} }>
-				{ props.environment.map((row => row.map((tile, index) => (
+				{ environment.map((
+					row => row.map((tile, index) => (
 						<img key={ index }
 							src={ `resources/environment/${ tile.tile }.png` }
 							alt={ `tile-${ index }-${ tile.tile }` }
@@ -39,7 +38,7 @@ const PokemonGameContainer = (props: PokemonGameContainerProps) => {
 				)) }
 
 			</div>
-			{ props.children }
+			{ children }
 		</div>
 	);
 };

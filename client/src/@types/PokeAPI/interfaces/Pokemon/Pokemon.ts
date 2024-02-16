@@ -125,52 +125,12 @@ interface IGeneration3Sprite {
 }
 
 interface IGeneration4Sprite {
-	'diamond-pearl': Pick<
-		ISpriteVariant,
-		'back_default' |
-		'back_female' |
-		'back_shiny' |
-		'back_shiny_female' |
-		'front_default' |
-		'front_female' |
-		'front_shiny' |
-		'front_shiny_female'
-	>;
-	'heartgold-soulsilver': Pick<
-		ISpriteVariant,
-		'back_default' |
-		'back_female' |
-		'back_shiny' |
-		'back_shiny_female' |
-		'front_default' |
-		'front_female' |
-		'front_shiny' |
-		'front_shiny_female'
-	>;
-	platinum: Pick<
-		ISpriteVariant,
-		'back_default' |
-		'back_female' |
-		'back_shiny' |
-		'back_shiny_female' |
-		'front_default' |
-		'front_female' |
-		'front_shiny' |
-		'front_shiny_female'
-	>;
+	'diamond-pearl': Pick<ISpriteVariant, 'back_default' | 'back_female' | 'back_shiny' | 'back_shiny_female' | 'front_default' | 'front_female' | 'front_shiny' | 'front_shiny_female'>;
+	'heartgold-soulsilver': Pick<ISpriteVariant, 'back_default' | 'back_female' | 'back_shiny' | 'back_shiny_female' | 'front_default' | 'front_female' | 'front_shiny' | 'front_shiny_female'>;
+	platinum: Pick<ISpriteVariant, 'back_default' | 'back_female' | 'back_shiny' | 'back_shiny_female' | 'front_default' | 'front_female' | 'front_shiny' | 'front_shiny_female'>;
 }
 
-type IBlackWhiteSprite = Pick<
-	ISpriteVariant,
-	'back_default' |
-	'back_female' |
-	'back_shiny' |
-	'back_shiny_female' |
-	'front_default' |
-	'front_female' |
-	'front_shiny' |
-	'front_shiny_female'
->;
+type IBlackWhiteSprite = Pick<ISpriteVariant, 'back_default' | 'back_female' | 'back_shiny' | 'back_shiny_female' | 'front_default' | 'front_female' | 'front_shiny' | 'front_shiny_female'>;
 
 interface IGeneration5Sprite {
 	'black-white': IBlackWhiteSprite & {
@@ -179,31 +139,13 @@ interface IGeneration5Sprite {
 }
 
 interface IGeneration6Sprite {
-	'omegaruby-alphasapphire': Pick<
-		ISpriteVariant,
-		'front_default' |
-		'front_female' |
-		'front_shiny' |
-		'front_shiny_female'
-	>;
-	'x-y': Pick<
-		ISpriteVariant,
-		'front_default' |
-		'front_female' |
-		'front_shiny' |
-		'front_shiny_female'
-	>;
+	'omegaruby-alphasapphire': Pick<ISpriteVariant, 'front_default' | 'front_female' | 'front_shiny' | 'front_shiny_female'>;
+	'x-y': Pick<ISpriteVariant, 'front_default' | 'front_female' | 'front_shiny' | 'front_shiny_female'>;
 }
 
 interface IGeneration7Sprite {
 	icons: Pick<ISpriteVariant, 'front_default' | 'front_female'>;
-	'ultra-sun-ultra-moon': Pick<
-		ISpriteVariant,
-		'front_default' |
-		'front_female' |
-		'front_shiny' |
-		'front_shiny_female'
-	>;
+	'ultra-sun-ultra-moon': Pick<ISpriteVariant, 'front_default' | 'front_female' | 'front_shiny' | 'front_shiny_female'>;
 }
 
 interface IGeneration8Sprite {

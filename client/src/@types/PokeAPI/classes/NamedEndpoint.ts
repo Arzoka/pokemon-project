@@ -65,11 +65,23 @@ export class NamedEndpoint<T> extends Endpoint<T> {
 	public async list(limit: number = 20, offset: number = 0): Promise<INamedApiResourceList<T>> {
 		if (this._list) {
 			const results = this._list.results.slice(offset, limit);
-			const { count, next, previous } = this._list;
-			return { count, next, previous, results };
+			const {
+				count,
+				next,
+				previous,
+			} = this._list;
+			return {
+				count,
+				next,
+				previous,
+				results,
+			};
 		}
 
-		const params = new URLSearchParams({ limit: `${ limit }`, offset: `${ offset }` });
+		const params = new URLSearchParams({
+			limit: `${ limit }`,
+			offset: `${ offset }`,
+		});
 		return fetch(`${ BASE_URI }/${ this.resource }?${ params }`).then(res => res.json());
 	}
 
@@ -93,7 +105,10 @@ export class NamedEndpoint<T> extends Endpoint<T> {
 		return data;
 	}
 
-	public _cache(data: T & { id: number; name: string }) {
+	public _cache(data: T & {
+		id: number;
+		name: string
+	}) {
 		this.cache.set(data.id, data);
 		this._nameMap.set(data.name, data.id);
 	}

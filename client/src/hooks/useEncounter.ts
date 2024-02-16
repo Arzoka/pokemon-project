@@ -1,20 +1,14 @@
-import {
-	useContext,
-	useEffect,
-	useState,
-} from 'react';
-import calculateEncounter
-	from '../helpers/environment/algorithms/calculateEncounters.ts';
-import {
-	PlayerContext,
-} from '../contexts/PlayerContext.tsx';
-import {
-	EnvironmentContext,
-} from '../contexts/EnvironmentContext.tsx';
+import { useContext, useEffect, useState } from 'react';
+import calculateEncounter from '../helpers/environment/algorithms/calculateEncounters.ts';
+import { PlayerContext } from '../contexts/PlayerContext.tsx';
+import { EnvironmentContext } from '../contexts/EnvironmentContext.tsx';
 
 const useEncounter = () => {
 	const { Player } = useContext(PlayerContext);
-	const { currentEncounter, setCurrentEncounter } = useContext(EnvironmentContext);
+	const {
+		currentEncounter,
+		setCurrentEncounter,
+	} = useContext(EnvironmentContext);
 	const [canEncounter, setCanEncounter] = useState(true);
 
 	useEffect(() => {

@@ -1,12 +1,5 @@
-import {
-	IPokemonAbility,
-	IPokemonMove,
-	IPokemonSprites,
-	IPokemonStat,
-} from '../../PokeAPI/interfaces/Pokemon/Pokemon';
-import {
-	IItem,
-} from '../../PokeAPI/interfaces/Items/Item.ts';
+import { IPokemonAbility, IPokemonMove, IPokemonSprites, IPokemonStat } from '../../PokeAPI/interfaces/Pokemon/Pokemon';
+import { IItem } from '../../PokeAPI/interfaces/Items/Item.ts';
 
 export interface IRandomPokemonEncounter {
 	id: number;

@@ -1,13 +1,6 @@
-import getRandomEnvironment
-	from '../helpers/environment/getRandomEnvironment.ts';
-import {
-	createContext,
-	ReactNode,
-	useState,
-} from 'react';
-import {
-	EnvironmentTile,
-} from '../@types/CustomPokemonTypes/Environment/tile.ts';
+import getRandomEnvironment from '../helpers/environment/getRandomEnvironment.ts';
+import { createContext, ReactNode, useState } from 'react';
+import { EnvironmentTile } from '../@types/CustomPokemonTypes/Environment/tile.ts';
 
 type EncounterChecker = () => boolean;
 
@@ -20,22 +13,32 @@ interface EnvironmentContextType {
 }
 
 const EnvironmentContext = createContext<EnvironmentContextType>({
-	currentEncounter: false, setCurrentEncounter: () => {
-	}, environment: getRandomEnvironment(), setEnvironment: () => {
+	currentEncounter: false,
+	setCurrentEncounter: () => {
+	},
+	environment: getRandomEnvironment(),
+	setEnvironment: () => {
 	},
 });
 
-const EnvironmentContextProvider = ({ children }: { children: ReactNode }) => {
+const EnvironmentContextProvider = ({ children }: {
+	children: ReactNode
+}) => {
 	const [currentEncounter, setCurrentEncounter] = useState<boolean>(false);
 	const [environment, setEnvironment] = useState<EnvironmentTile[][]>(getRandomEnvironment());
 
 	return (
-		<EnvironmentContext.Provider value={ { currentEncounter, setCurrentEncounter, environment, setEnvironment } }>
+		<EnvironmentContext.Provider value={ {
+			currentEncounter,
+			setCurrentEncounter,
+			environment,
+			setEnvironment,
+		} }>
 			{ children }
-		</EnvironmentContext.Provider>);
+		</EnvironmentContext.Provider>
+	);
 };
 
 export {
-	EnvironmentContext,
-	EnvironmentContextProvider,
+	EnvironmentContext, EnvironmentContextProvider,
 };

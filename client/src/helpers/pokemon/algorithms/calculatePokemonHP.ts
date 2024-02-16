@@ -9,7 +9,9 @@ function calculatePokemonHP(pokemon: IPokemon, EVs: IEVs, IVs: IIVs, lvl: number
 		return 1;
 	}
 
-	return Math.floor(0.01 * (2 * hp_base_stat + IVs.hp + Math.floor(0.25 * EVs.hp)) * lvl) + lvl + 10;
+	return Math.floor(0.01 * (
+		2 * hp_base_stat + IVs.hp + Math.floor(0.25 * EVs.hp)
+	) * lvl) + lvl + 10;
 }
 
 export default calculatePokemonHP;

@@ -1,13 +1,7 @@
-import calculatePokemonCatch
-	from './algorithms/calculatePokemonCatch.ts';
-import {
-	IRandomPokemonEncounter,
-} from '../../@types/CustomPokemonTypes/Encounters/RandomEncounter.ts';
-import {
-	IReceivedPokeball,
-} from '../../@types/CustomPokemonTypes/Pokeballs/IPokeball.ts';
-import React
-	from 'react';
+import calculatePokemonCatch from './algorithms/calculatePokemonCatch.ts';
+import { IRandomPokemonEncounter } from '../../@types/CustomPokemonTypes/Encounters/RandomEncounter.ts';
+import { IReceivedPokeball } from '../../@types/CustomPokemonTypes/Pokeballs/IPokeball.ts';
+import React from 'react';
 
 function attemptCatch(encounter: IRandomPokemonEncounter, pokeball: IReceivedPokeball, setAttemptingCatch: React.Dispatch<React.SetStateAction<boolean>>, setCurrentEncounter: (currentEncounter: boolean) => void) {
 	const catchTime = Math.random() * 3000 + 1000;

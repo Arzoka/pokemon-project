@@ -1,10 +1,10 @@
-import {
-	EnvironmentTile,
-} from '../Environment/tile.ts';
+import { EnvironmentTile } from '../Environment/tile.ts';
 
 export interface IPlayer {
 	lastEnvironmentTile: {
-		x: number; y: number; encounterCategory: string | null
+		x: number;
+		y: number;
+		encounterCategory: string | null
 	};
 	x: number;
 	y: number;

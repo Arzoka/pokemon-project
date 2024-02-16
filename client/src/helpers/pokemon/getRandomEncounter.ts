@@ -1,32 +1,15 @@
-import axios
-	from 'axios';
-import {
-	IRandomPokemonEncounter,
-} from '../../@types/CustomPokemonTypes/Encounters/RandomEncounter';
-import {
-	IPokemon,
-	IPokemonMove,
-	IPokemonType,
-} from '../../@types/PokeAPI/interfaces/Pokemon/Pokemon.ts';
-import pickRandom
-	from '../pickRandom.ts';
-import pickRandomItem
-	from './pickRandomItem.ts';
-import getCaptureRate
-	from './getCaptureRate.ts';
-import calculatePokemonHP
-	from './algorithms/calculatePokemonHP.ts';
-import calculatePokemonStat
-	from './algorithms/calculatePokemonStat.ts';
-import getRarityType
-	from './getRarityType.ts';
-import {
-	API_URL,
-} from '../../constants/index.ts';
-import generateEVs
-	from './algorithms/generateEVs.ts';
-import generateIVs
-	from './algorithms/generateIVs.ts';
+import axios from 'axios';
+import { IRandomPokemonEncounter } from '../../@types/CustomPokemonTypes/Encounters/RandomEncounter';
+import { IPokemon, IPokemonMove, IPokemonType } from '../../@types/PokeAPI/interfaces/Pokemon/Pokemon.ts';
+import pickRandom from '../pickRandom.ts';
+import pickRandomItem from './pickRandomItem.ts';
+import getCaptureRate from './getCaptureRate.ts';
+import calculatePokemonHP from './algorithms/calculatePokemonHP.ts';
+import calculatePokemonStat from './algorithms/calculatePokemonStat.ts';
+import getRarityType from './getRarityType.ts';
+import { API_URL } from '../../constants/index.ts';
+import generateEVs from './algorithms/generateEVs.ts';
+import generateIVs from './algorithms/generateIVs.ts';
 
 async function getRandomEncounter(setLoading: (loading: boolean) => void) {
 	if (setLoading) {
@@ -84,11 +67,32 @@ async function getRandomEncounter(setLoading: (loading: boolean) => void) {
 	const IVs = generateIVs();
 
 	const randomPokemon: IRandomPokemonEncounter = {
-		id: receivedRandomPokemon.id, capture_rate: await getCaptureRate(receivedRandomPokemon.species.url), rarity_type: await getRarityType(receivedRandomPokemon.species.url), name: receivedRandomPokemon.name, ability: pickRandom(receivedRandomPokemon.abilities, 1)[0], held_item: await pickRandomItem(receivedRandomPokemon.held_items, 1), level: level, evs: EVs, ivs: IVs, current_hp: calculatePokemonHP(receivedRandomPokemon, EVs, IVs, level), caught: false, stats: {
-			hp: calculatePokemonHP(receivedRandomPokemon, EVs, IVs, level), atk: calculatePokemonStat(receivedRandomPokemon, IVs, EVs, level, 'attack'), def: calculatePokemonStat(receivedRandomPokemon, IVs, EVs, level, 'defense'), spA: calculatePokemonStat(receivedRandomPokemon, IVs, EVs, level, 'special-attack'), spD: calculatePokemonStat(receivedRandomPokemon, IVs, EVs, level, 'special-defense'), spd: calculatePokemonStat(receivedRandomPokemon, IVs, EVs, level, 'speed'),
+		id: receivedRandomPokemon.id,
+		capture_rate: await getCaptureRate(receivedRandomPokemon.species.url),
+		rarity_type: await getRarityType(receivedRandomPokemon.species.url),
+		name: receivedRandomPokemon.name,
+		ability: pickRandom(receivedRandomPokemon.abilities, 1)[0],
+		held_item: await pickRandomItem(receivedRandomPokemon.held_items, 1),
+		level: level,
+		evs: EVs,
+		ivs: IVs,
+		current_hp: calculatePokemonHP(receivedRandomPokemon, EVs, IVs, level),
+		caught: false,
+		stats: {
+			hp: calculatePokemonHP(receivedRandomPokemon, EVs, IVs, level),
+			atk: calculatePokemonStat(receivedRandomPokemon, IVs, EVs, level, 'attack'),
+			def: calculatePokemonStat(receivedRandomPokemon, IVs, EVs, level, 'defense'),
+			spA: calculatePokemonStat(receivedRandomPokemon, IVs, EVs, level, 'special-attack'),
+			spD: calculatePokemonStat(receivedRandomPokemon, IVs, EVs, level, 'special-defense'),
+			spd: calculatePokemonStat(receivedRandomPokemon, IVs, EVs, level, 'speed'),
 		},
 
-		moves: pickRandom(receivedRandomPokemon.moves, 4) as IPokemonMove[], sprites: receivedRandomPokemon.sprites, base_stats: receivedRandomPokemon.stats, types: receivedRandomPokemon.types.map((type: IPokemonType) => type.type.name), cry: receivedRandomPokemon.cries.legacy ?? receivedRandomPokemon.cries.latest ?? null, shiny: isShiny,
+		moves: pickRandom(receivedRandomPokemon.moves, 4) as IPokemonMove[],
+		sprites: receivedRandomPokemon.sprites,
+		base_stats: receivedRandomPokemon.stats,
+		types: receivedRandomPokemon.types.map((type: IPokemonType) => type.type.name),
+		cry: receivedRandomPokemon.cries.legacy ?? receivedRandomPokemon.cries.latest ?? null,
+		shiny: isShiny,
 	};
 
 	if (setLoading) {

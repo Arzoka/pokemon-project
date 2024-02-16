@@ -1,19 +1,7 @@
-import {
-	createContext,
-	Dispatch,
-	ReactNode,
-	SetStateAction,
-	useContext,
-	useState,
-} from 'react';
-import {
-	EnvironmentContext,
-} from './EnvironmentContext.tsx';
-import Player
-	from '../entities/Player.ts';
-import {
-	IPlayer,
-} from '../@types/CustomPokemonTypes/Entities/Player.ts';
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from 'react';
+import { EnvironmentContext } from './EnvironmentContext.tsx';
+import Player from '../entities/Player.ts';
+import { IPlayer } from '../@types/CustomPokemonTypes/Entities/Player.ts';
 
 interface PlayerContext {
 	Player: IPlayer | null;
@@ -22,12 +10,16 @@ interface PlayerContext {
 }
 
 const PlayerContext = createContext<PlayerContext>({
-	Player: null, setPlayer: () => {
-	}, movePlayer: () => {
+	Player: null,
+	setPlayer: () => {
+	},
+	movePlayer: () => {
 	},
 });
 
-const PlayerContextProvider = ({ children }: { children: ReactNode }) => {
+const PlayerContextProvider = ({ children }: {
+	children: ReactNode
+}) => {
 	const { environment } = useContext(EnvironmentContext);
 	const [player, setPlayer] = useState<IPlayer | null>(new Player(environment));
 
@@ -39,12 +31,16 @@ const PlayerContextProvider = ({ children }: { children: ReactNode }) => {
 	};
 
 	return (
-		<PlayerContext.Provider value={ { Player: player, movePlayer, setPlayer } }>
+		<PlayerContext.Provider value={ {
+			Player: player,
+			movePlayer,
+			setPlayer,
+		} }>
 			{ children }
-		</PlayerContext.Provider>);
+		</PlayerContext.Provider>
+	);
 };
 
 export {
-	PlayerContext,
-	PlayerContextProvider,
+	PlayerContext, PlayerContextProvider,
 };

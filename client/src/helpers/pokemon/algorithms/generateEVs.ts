@@ -7,7 +7,9 @@ function generateEVs() {
 	} = {};
 
 	values.forEach(value => {
-		EVs[value] = Math.floor(Math.random() * (maxIV + 1));
+		EVs[value] = Math.floor(Math.random() * (
+			maxIV + 1
+		));
 	});
 
 	return EVs;
