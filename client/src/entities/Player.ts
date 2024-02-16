@@ -45,6 +45,42 @@ class Player {
 		this.lastEnvironmentTile.x = this.x / 50;
 		this.lastEnvironmentTile.y = this.y / 50;
 
+
+		let newtile: EnvironmentTile | undefined;
+
+		switch (directionKey) {
+			case 'up':
+				if (this.lastEnvironmentTile.y > 0) {
+					newtile = this.environment[this.lastEnvironmentTile.y - 1][this.lastEnvironmentTile.x];
+				}
+				break;
+			case 'down':
+				if (this.lastEnvironmentTile.y < this.environment.length - 1) {
+					newtile = this.environment[this.lastEnvironmentTile.y + 1][this.lastEnvironmentTile.x];
+				}
+				break;
+			case 'left':
+				if (this.lastEnvironmentTile.x > 0) {
+					newtile = this.environment[this.lastEnvironmentTile.y][this.lastEnvironmentTile.x - 1];
+				}
+				break;
+			case 'right':
+				if (this.lastEnvironmentTile.x < this.environment[0].length - 1) {
+					newtile = this.environment[this.lastEnvironmentTile.y][this.lastEnvironmentTile.x + 1];
+				}
+				break;
+		}
+
+		console.log(newtile);
+
+		if (!newtile?.walkable) {
+			this.playBorderAudio();
+			setTimeout(() => {
+				this.moving = false;
+			}, 1000 / this.speed);
+			return;
+		}
+
 		if (directionKey === 'up' && this.y !== 0) {
 			this.y -= this.stepSize;
 		}
