@@ -11,35 +11,25 @@ class Player {
 	public moving: boolean;
 	public environment: EnvironmentTile[][];
 	public lastEnvironmentTile: {
-		x: number,
-		y: number,
-		encounterCategory: string | null
+		x: number, y: number, encounterCategory: string | null
 	};
 	public canEncounter: boolean;
 	public isRunning: boolean;
 
-	constructor(environment: EnvironmentTile[][]) {
-		this.x = 0;
-		this.y = 0;
-		this.direction = 'down';
-		this.stepSize = 50;
-		this.speed = 10;
-		this.moving = false;
+	constructor(environment: EnvironmentTile[][], player: Player | null = null) {
+		this.x = player ? player.x : 0;
+		this.y = player ? player.y : 0;
+		this.direction = player ? player.direction : 'down';
+		this.stepSize = player ? player.stepSize : 50;
+		this.speed = player ? player.speed : 1;
+		this.moving = player ? player.moving : false;
+		this.lastEnvironmentTile = player ? player.lastEnvironmentTile : { x: 0, y: 0, encounterCategory: null };
+		this.canEncounter = player ? player.canEncounter : false;
+		this.isRunning = player ? player.isRunning : false;
 		this.environment = environment;
-		this.canEncounter = false;
-		this.isRunning = false;
-		this.lastEnvironmentTile = {
-			x: 0,
-			y: 0,
-			encounterCategory: null,
-		};
 	}
 
 	movePlayer(directionKey: string) {
-		if (this.moving) {
-			return;
-		}
-
 		this.moving = true;
 		this.direction = directionKey;
 		this.lastEnvironmentTile.x = this.x / 50;
@@ -71,7 +61,7 @@ class Player {
 				break;
 		}
 
-		console.log(newtile);
+		// console.log(newtile);
 
 		if (!newtile?.walkable) {
 			this.playBorderAudio();

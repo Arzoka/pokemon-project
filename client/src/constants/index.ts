@@ -1,29 +1,7 @@
-import {
-	EnvironmentTile,
-} from '../@types/CustomPokemonTypes/Environment/tile.ts';
-
-const API_URL = 'https://pokeapi.co/api/v2';
-const AVAILABLE_TILES: EnvironmentTile[] = [{
-	tile: 'grass_1',
-	walkable: true,
-	encounterCategory: null,
-}, {
-	tile: 'grass_2',
-	walkable: true,
-	encounterCategory: null,
-}, {
-	tile: 'grass_3',
-	walkable: true,
-	encounterCategory: null,
-}, {
-	tile: 'tall_grass',
-	walkable: true,
-	encounterCategory: 'grass',
-}, {
-	tile: 'water',
-	walkable: false,
-	encounterCategory: null,
-}];
+import API_URL
+	from './API_URL.ts';
+import AVAILABLE_TILES
+	from './ENVIRONMENT_TILES.ts';
 
 export {
 	API_URL,

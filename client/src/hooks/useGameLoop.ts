@@ -1,88 +1,83 @@
 import {
+	useContext,
 	useEffect,
+	useRef,
 } from 'react';
+import {
+	EnvironmentContext,
+} from '../contexts/EnvironmentContext.tsx';
+import {
+	PlayerContext,
+} from '../contexts/PlayerContext.tsx';
 
-interface Player {
-	lastEnvironmentTile: {
-		x: number;
-		y: number;
-	};
-	x: number;
-	y: number;
-	direction: string;
-	canEncounter: boolean;
-	isRunning: boolean;
-	movePlayer: (direction: string) => void;
-	updatePlayer: () => void;
-}
+const useGameLoop = () => {
+	const { Player, movePlayer } = useContext(PlayerContext);
+	const { currentEncounter } = useContext(EnvironmentContext);
+	const activeLoop = useRef<any>();
+	const keyState = useRef<{ [key: string]: boolean }>({
+		'arrow-left': false, 'arrow-right': false, 'arrow-up': false, 'arrow-down': false, 'a': false, 'd': false, 'w': false, 's': false, 'shift': false,
+	});
 
-interface setPlayerState {
-	(x: {
-		x: number;
-		y: number;
-		lastEnvironmentTile: {
-			x: number;
-			y: number;
-		};
-		direction: string;
-		canEncounter: boolean;
-	}): void;
-}
-
-const useGameLoop = (player: Player, setPlayerState: setPlayerState) => {
 	useEffect(() => {
 		console.log('game loop useEffect triggered');
-		const keyState: {
-			[key: string]: boolean
-		} = {};
-		window.addEventListener('keydown', function (e) {
-			keyState[e.key.toLowerCase()] = true;
-		}, true);
-		window.addEventListener('keyup', function (e) {
-			keyState[e.key.toLowerCase()] = false;
-		}, true);
 
-		function gameLoop() {
-			player.updatePlayer();
-			if (keyState['arrow-left'] || keyState['a']) {
-				player.movePlayer('left');
-			}
-			if (keyState['arrow-right'] || keyState['d']) {
-				player.movePlayer('right');
-			}
-			if (keyState['arrow-up'] || keyState['w']) {
-				player.movePlayer('up');
-			}
-			if (keyState['arrow-left'] || keyState['s']) {
-				player.movePlayer('down');
+		const handleKeyDown = (e: KeyboardEvent) => {
+			// Without this we get cursed diagonal moving lol
+			for (const key in keyState.current) {
+				keyState.current[key] = false;
 			}
 
+			keyState.current[e.key.toLowerCase()] = true;
+		};
 
-			player.isRunning = keyState['shift'];
+		const handleKeyUp = (e: KeyboardEvent) => {
+			keyState.current[e.key.toLowerCase()] = false;
+		};
 
-
-			setPlayerState({
-				x: player.x,
-				y: player.y,
-				lastEnvironmentTile: player.lastEnvironmentTile,
-				direction: player.direction,
-				canEncounter: player.canEncounter,
-			});
-
-			setTimeout(gameLoop, player.isRunning ? 100 : 200);
-		}
-
-		gameLoop();
+		window.addEventListener('keydown', handleKeyDown, true);
+		window.addEventListener('keyup', handleKeyUp, true);
 
 		return () => {
-			window.removeEventListener('keydown', function (e) {
-				keyState[e.key.toLowerCase()] = true;
-			}, true);
-			window.removeEventListener('keyup', function (e) {
-				keyState[e.key.toLowerCase()] = false;
-			}, true);
+			window.removeEventListener('keydown', handleKeyDown, true);
+			window.removeEventListener('keyup', handleKeyUp, true);
 		};
 	}, []);
+
+	useEffect(() => {
+		const gameLoop = () => {
+			if (!Player) {
+				return;
+			}
+
+			if (keyState.current['arrow-left'] || keyState.current['a']) {
+				movePlayer('left');
+			}
+			if (keyState.current['arrow-right'] || keyState.current['d']) {
+				movePlayer('right');
+			}
+			if (keyState.current['arrow-up'] || keyState.current['w']) {
+				movePlayer('up');
+			}
+			if (keyState.current['arrow-down'] || keyState.current['s']) {
+				movePlayer('down');
+			}
+
+			// Update Player state after each movement
+			activeLoop.current = setTimeout(gameLoop, Player.isRunning ? 100 : 200);
+		};
+
+		if (currentEncounter) {
+			clearTimeout(activeLoop.current);
+		} else {
+			if (!Player) {
+				return;
+			}
+			activeLoop.current = setTimeout(gameLoop, Player.isRunning ? 100 : 200);
+		}
+
+		return () => clearTimeout(activeLoop.current);
+	}, [Player, currentEncounter, movePlayer]);
+
 };
 
 export default useGameLoop;

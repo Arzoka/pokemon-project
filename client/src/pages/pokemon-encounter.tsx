@@ -1,17 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { IRandomPokemonEncounter } from '../@types/CustomPokemonTypes/Encounters/RandomEncounter.ts';
-import { IReceivedPokeball } from '../@types/CustomPokemonTypes/Pokeballs/IPokeball.ts';
-import getPokeballs from '../helpers/pokeballs/getPokeballs.ts';
-import PokemonSprite from '../components/pokemon-sprite/index.tsx';
-import getRandomEncounter from '../helpers/pokemon/getRandomEncounter.ts';
-import PokeballSelector from '../components/pokeball-selector/index.tsx';
+import {
+	useEffect,
+	useState,
+} from 'react';
+import {
+	IRandomPokemonEncounter,
+} from '../@types/CustomPokemonTypes/Encounters/RandomEncounter.ts';
+import {
+	IReceivedPokeball,
+} from '../@types/CustomPokemonTypes/Pokeballs/IPokeball.ts';
+import getPokeballs
+	from '../helpers/pokeballs/getPokeballs.ts';
+import PokemonSprite
+	from '../components/pokemon-sprite/index.tsx';
+import getRandomEncounter
+	from '../helpers/pokemon/getRandomEncounter.ts';
+import PokeballSelector
+	from '../components/pokeball-selector/index.tsx';
 
-interface PokemonEncounterProps {
-	setCurrentEncounter: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-function PokemonEncounter(props: PokemonEncounterProps) {
-	const { setCurrentEncounter } = props;
+function PokemonEncounter() {
 	const [encounter, setEncounter] = useState<IRandomPokemonEncounter | null>(null);
 	const [pokeballs, setPokeballs] = useState<IReceivedPokeball[]>([]);
 	const [currentPokeball, setCurrentPokeball] = useState<IReceivedPokeball | null>(null);
@@ -34,41 +40,32 @@ function PokemonEncounter(props: PokemonEncounterProps) {
 
 
 	if (loading) {
-		return (<h1>Loading...</h1>);
+		return (
+			<h1>Loading...</h1>);
 	}
 
 	return (
 		<section style={ {
-			background: 'black',
-			position: 'relative',
-			width: '100%',
-			height: '100%',
+			background: 'black', position: 'relative', width: '100%', height: '100%',
 		} }>
-			{ encounter ? (
-				<>
-					<p>{ encounter.name } lvl{ encounter.level }</p>
-					<PokemonSprite
-						pokemon={ encounter }
-						attemptingCatch={ attemptingCatch }
-						pokeball={ currentPokeball }
-					/>
-				</>
-			) : null }
-			{
-				pokeballs && encounter ? (
-					<PokeballSelector
-						pokeballs={ pokeballs }
-						currentPokeball={ currentPokeball }
-						setCurrentPokeball={ setCurrentPokeball }
-						attemptingCatch={ attemptingCatch }
-						setAttemptingCatch={ setAttemptingCatch }
-						encounter={ encounter }
-						setCurrentEncounter={ setCurrentEncounter }
-					/>
-				) : null
-			}
-		</section>
-	);
+			{ encounter ? (<>
+				<p>{ encounter.name } lvl{ encounter.level }</p>
+				<PokemonSprite
+					pokemon={ encounter }
+					attemptingCatch={ attemptingCatch }
+					pokeball={ currentPokeball }
+				/>
+			</>) : null }
+			{ pokeballs && encounter ? (
+				<PokeballSelector
+					pokeballs={ pokeballs }
+					currentPokeball={ currentPokeball }
+					setCurrentPokeball={ setCurrentPokeball }
+					attemptingCatch={ attemptingCatch }
+					setAttemptingCatch={ setAttemptingCatch }
+					encounter={ encounter }
+				/>) : null }
+		</section>);
 }
 
 export default PokemonEncounter;
