@@ -1,17 +1,47 @@
-import { IEvolutionChain } from '../Evolution/EvolutionChain';
-import { IGeneration } from '../Games/Generation';
-import { IPokedex } from '../Games/Pokedex';
-import { IPalParkArea } from '../Locations/PalParkArea';
-import { IApiResource } from '../Utility/ApiResourceList';
-import { IDescription, IFlavorText, IName } from '../Utility/CommonModels';
-import { ILanguage } from '../Utility/Language';
-import { INamedApiResource } from '../Utility/NamedApiResourceList';
-import { IEggGroup } from './EggGroup';
-import { IGrowthRate } from './GrowthRate';
-import { IPokemon } from './Pokemon';
-import { IPokemonColor } from './PokemonColor';
-import { IPokemonHabitat } from './PokemonHabitat';
-import { IPokemonShape } from './PokemonShape';
+import {
+	IEvolutionChain,
+} from '../Evolution/EvolutionChain';
+import {
+	IGeneration,
+} from '../Games/Generation';
+import {
+	IPokedex,
+} from '../Games/Pokedex';
+import {
+	IPalParkArea,
+} from '../Locations/PalParkArea';
+import {
+	IApiResource,
+} from '../Utility/ApiResourceList';
+import {
+	IDescription,
+	IFlavorText,
+	IName,
+} from '../Utility/CommonModels';
+import {
+	ILanguage,
+} from '../Utility/Language';
+import {
+	INamedApiResource,
+} from '../Utility/NamedApiResourceList';
+import {
+	IEggGroup,
+} from './EggGroup';
+import {
+	IGrowthRate,
+} from './GrowthRate';
+import {
+	IPokemon,
+} from './Pokemon';
+import {
+	IPokemonColor,
+} from './PokemonColor';
+import {
+	IPokemonHabitat,
+} from './PokemonHabitat';
+import {
+	IPokemonShape,
+} from './PokemonShape';
 
 export interface IPokemonSpecies {
 	id: number;
@@ -21,6 +51,8 @@ export interface IPokemonSpecies {
 	capture_rate: number;
 	base_happiness: number;
 	is_baby: boolean;
+	is_mythical: boolean;
+	is_legendary: boolean;
 	hatch_counter: number;
 	has_gender_differences: boolean;
 	forms_switchable: boolean;

@@ -1,13 +1,32 @@
-import axios from 'axios';
-import { IRandomPokemonEncounter } from '../../@types/CustomPokemonTypes/Encounters/RandomEncounter';
-import { IPokemon, IPokemonMove, IPokemonType } from '../../@types/PokeAPI/interfaces/Pokemon/Pokemon.ts';
-import pickRandom from '../pickRandom.ts';
-import pickRandomItem from './pickRandomItem.ts';
-import getCaptureRate from './getCaptureRate.ts';
-import calculatePokemonHP from './algorithms/calculatePokemonHP.ts';
-import calculatePokemonStat from './algorithms/calculatePokemonStat.ts';
-import getRarityType from './getRarityType.ts';
-import { API_URL } from '../../constants/index.ts';
+import axios
+	from 'axios';
+import {
+	IRandomPokemonEncounter,
+} from '../../@types/CustomPokemonTypes/Encounters/RandomEncounter';
+import {
+	IPokemon,
+	IPokemonMove,
+	IPokemonType,
+} from '../../@types/PokeAPI/interfaces/Pokemon/Pokemon.ts';
+import pickRandom
+	from '../pickRandom.ts';
+import pickRandomItem
+	from './pickRandomItem.ts';
+import getCaptureRate
+	from './getCaptureRate.ts';
+import calculatePokemonHP
+	from './algorithms/calculatePokemonHP.ts';
+import calculatePokemonStat
+	from './algorithms/calculatePokemonStat.ts';
+import getRarityType
+	from './getRarityType.ts';
+import {
+	API_URL,
+} from '../../constants/index.ts';
+import generateEVs
+	from './algorithms/generateEVs.ts';
+import generateIVs
+	from './algorithms/generateIVs.ts';
 
 async function getRandomEncounter(setLoading: (loading: boolean) => void) {
 	if (setLoading) {
@@ -60,25 +79,9 @@ async function getRandomEncounter(setLoading: (loading: boolean) => void) {
 		}
 	}
 
-	const IVs = {
-		hp: 0,
-		atk: 0,
-		def: 0,
-		spA: 0,
-		spD: 0,
-		spd: 0,
-	};
-
-	const EVs = {
-		hp: 0,
-		atk: 0,
-		def: 0,
-		spA: 0,
-		spD: 0,
-		spd: 0,
-	};
-
 	const level = Math.floor(Math.random() * 100) + 1;
+	const EVs = generateEVs();
+	const IVs = generateIVs();
 
 	const randomPokemon: IRandomPokemonEncounter = {
 		id: receivedRandomPokemon.id,
@@ -88,6 +91,8 @@ async function getRandomEncounter(setLoading: (loading: boolean) => void) {
 		ability: pickRandom(receivedRandomPokemon.abilities, 1)[0],
 		held_item: await pickRandomItem(receivedRandomPokemon.held_items, 1),
 		level: level,
+		evs: EVs,
+		ivs: IVs,
 		current_hp: calculatePokemonHP(receivedRandomPokemon, EVs, IVs, level),
 		caught: false,
 		stats: {
@@ -110,6 +115,7 @@ async function getRandomEncounter(setLoading: (loading: boolean) => void) {
 	if (setLoading) {
 		setLoading(false);
 	}
+	console.log(randomPokemon);
 	return randomPokemon;
 }
 

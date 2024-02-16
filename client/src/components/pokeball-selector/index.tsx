@@ -1,7 +1,13 @@
-import { IReceivedPokeball } from '../../@types/CustomPokemonTypes/Pokeballs/IPokeball.ts';
-import React from 'react';
-import attemptCatch from '../../helpers/pokemon/attemptCatch.ts';
-import { IRandomPokemonEncounter } from '../../@types/CustomPokemonTypes/Encounters/RandomEncounter.ts';
+import {
+	IReceivedPokeball,
+} from '../../@types/CustomPokemonTypes/Pokeballs/IPokeball.ts';
+import React
+	from 'react';
+import attemptCatch
+	from '../../helpers/pokemon/attemptCatch.ts';
+import {
+	IRandomPokemonEncounter,
+} from '../../@types/CustomPokemonTypes/Encounters/RandomEncounter.ts';
 
 interface PokeballSelectorProps {
 	pokeballs: IReceivedPokeball[];
@@ -14,14 +20,14 @@ interface PokeballSelectorProps {
 }
 
 const PokeballSelector: React.FC<PokeballSelectorProps> = ({
-	                                                           pokeballs,
-	                                                           currentPokeball,
-	                                                           setCurrentPokeball,
-	                                                           attemptingCatch,
-	                                                           setAttemptingCatch,
-	                                                           encounter,
-	                                                           setCurrentEncounter,
-                                                           }) => {
+	pokeballs,
+	currentPokeball,
+	setCurrentPokeball,
+	attemptingCatch,
+	setAttemptingCatch,
+	encounter,
+	setCurrentEncounter,
+}) => {
 	function handlePokeballChange(direction: string) {
 		if (!currentPokeball) {
 			return;
@@ -77,34 +83,31 @@ const PokeballSelector: React.FC<PokeballSelectorProps> = ({
 				} }>
 					Previous
 				</button>
-				{
-					currentPokeball ? (
-						<div style={ {
-							display: 'flex',
-							flexDirection: 'column',
-							alignItems: 'center',
-							textAlign: 'center',
+				{ currentPokeball ? (
+					<div style={ {
+						display: 'flex',
+						flexDirection: 'column',
+						alignItems: 'center',
+						textAlign: 'center',
+					} }
+					>
+						<p style={ {
+							fontWeight: 'bold',
+						} }>
+							{ currentPokeball.name }
+						</p>
+						<img
+							src={ currentPokeball.sprite }
+							alt={ currentPokeball.name + ' sprite' }
+						/>
+						<p style={ {
+							maxWidth: '55%',
+							wordWrap: 'break-word',
 						} }
 						>
-							<p style={ {
-								fontWeight: 'bold',
-							} }>
-								{ currentPokeball.name }
-							</p>
-							<img
-								src={ currentPokeball.sprite }
-								alt={ currentPokeball.name + ' sprite' }
-							/>
-							<p style={ {
-								maxWidth: '55%',
-								wordWrap: 'break-word',
-							} }
-							>
-								{ currentPokeball.description }
-							</p>
-						</div>
-					) : null
-				}
+							{ currentPokeball.description }
+						</p>
+					</div>) : null }
 				<button onClick={ () => handlePokeballChange('right') } style={ {
 					width: '100px',
 					paddingBlock: '0.5em',
@@ -120,23 +123,20 @@ const PokeballSelector: React.FC<PokeballSelectorProps> = ({
 				<button style={ {
 					width: '100px',
 					paddingBlock: '0.5em',
-				} } onClick={
-					() => setCurrentEncounter(false)
-				}
+				} } onClick={ () => {
+					setCurrentEncounter(false);
+				} }
 				>
 					Run
 				</button>
 				<button style={ {
 					width: '100px',
 					paddingBlock: '0.5em',
-				} } onClick={
-					() => !encounter.caught && attemptCatch(encounter, currentPokeball, setAttemptingCatch, setCurrentEncounter)
-				}>
+				} } onClick={ () => !encounter.caught && attemptCatch(encounter, currentPokeball, setAttemptingCatch, setCurrentEncounter) }>
 					Catch
 				</button>
 			</div>
-		</div>
-	);
+		</div>);
 };
 
 export default PokeballSelector;

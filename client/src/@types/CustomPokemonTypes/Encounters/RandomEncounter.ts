@@ -1,5 +1,12 @@
-import { IPokemonAbility, IPokemonMove, IPokemonSprites, IPokemonStat } from '../../PokeAPI/interfaces/Pokemon/Pokemon';
-import { IItem } from '../../PokeAPI/interfaces/Items/Item.ts';
+import {
+	IPokemonAbility,
+	IPokemonMove,
+	IPokemonSprites,
+	IPokemonStat,
+} from '../../PokeAPI/interfaces/Pokemon/Pokemon';
+import {
+	IItem,
+} from '../../PokeAPI/interfaces/Items/Item.ts';
 
 export interface IRandomPokemonEncounter {
 	id: number;
@@ -7,6 +14,12 @@ export interface IRandomPokemonEncounter {
 	rarity_type: string;
 	name: string;
 	level: number;
+	evs: {
+		[key: string]: number;
+	};
+	ivs: {
+		[key: string]: number;
+	};
 	caught: boolean;
 	current_hp: number;
 	stats: {
