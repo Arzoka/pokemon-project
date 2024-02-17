@@ -24,19 +24,33 @@ const useGameLoop = () => {
 	});
 
 	useEffect(() => {
+		console.log(keyState.current);
 		console.log('game loop useEffect triggered');
 
 		const handleKeyDown = (e: KeyboardEvent) => {
 			// Without this we get cursed diagonal moving lol
 			for (const key in keyState.current) {
-				keyState.current[key] = false;
+				if (e.key.toLowerCase() !== 'shift' && key !== 'shift') {
+					keyState.current = {
+						...keyState.current,
+						[key]: key === e.key.toLowerCase(),
+					};
+				}
 			}
 
-			keyState.current[e.key.toLowerCase()] = true;
+			console.log(e.key.toLowerCase());
+
+			keyState.current = {
+				...keyState.current,
+				[e.key.toLowerCase()]: true,
+			};
 		};
 
 		const handleKeyUp = (e: KeyboardEvent) => {
-			keyState.current[e.key.toLowerCase()] = false;
+			keyState.current = {
+				...keyState.current,
+				[e.key.toLowerCase()]: false,
+			};
 		};
 
 		window.addEventListener('keydown', handleKeyDown, true);
@@ -54,21 +68,14 @@ const useGameLoop = () => {
 				return;
 			}
 
-			if (keyState.current['arrow-left'] || keyState.current['a']) {
-				movePlayer('left');
-			}
-			if (keyState.current['arrow-right'] || keyState.current['d']) {
-				movePlayer('right');
-			}
-			if (keyState.current['arrow-up'] || keyState.current['w']) {
-				movePlayer('up');
-			}
-			if (keyState.current['arrow-down'] || keyState.current['s']) {
-				movePlayer('down');
-			}
+			keyState.current['arrow-left'] || keyState.current['a'] && movePlayer('left');
+			keyState.current['arrow-right'] || keyState.current['d'] && movePlayer('right');
+			keyState.current['arrow-up'] || keyState.current['w'] && movePlayer('up');
+			keyState.current['arrow-down'] || keyState.current['s'] && movePlayer('down');
 
-			// Update Player state after each movement
-			activeLoop.current = setTimeout(gameLoop, Player.isRunning ? 100 : 200);
+			Player.isRunning = keyState.current['shift'];
+
+			activeLoop.current = setTimeout(gameLoop, keyState.current['shift'] ? 100 : 200);
 		};
 
 		if (currentEncounter) {
@@ -77,7 +84,7 @@ const useGameLoop = () => {
 			if (!Player) {
 				return;
 			}
-			activeLoop.current = setTimeout(gameLoop, Player.isRunning ? 100 : 200);
+			activeLoop.current = setTimeout(gameLoop, keyState.current['shift'] ? 100 : 200);
 		}
 
 		return () => clearTimeout(activeLoop.current);

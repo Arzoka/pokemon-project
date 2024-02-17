@@ -17,11 +17,11 @@ const AVAILABLE_TILES: EnvironmentTile[] = [
 		tile: 'tall_grass',
 		walkable: true,
 		encounterCategory: 'grass',
-	}, {
-		tile: 'water',
-		walkable: false,
-		encounterCategory: null,
-	},
+	}, // {
+	// 	tile: 'water',
+	// 	walkable: false,
+	// 	encounterCategory: null,
+	// },
 ];
 
 export default AVAILABLE_TILES;
