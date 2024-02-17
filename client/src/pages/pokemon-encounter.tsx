@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { IRandomPokemonEncounter } from '../@types/CustomPokemonTypes/Encounters/RandomEncounter.ts';
 import { IReceivedPokeball } from '../@types/CustomPokemonTypes/Pokeballs/IPokeball.ts';
-import getPokeballs from '../helpers/pokeballs/getPokeballs.ts';
+import getPokeballs from '../utils/pokeballs/getPokeballs.ts';
 import PokemonSprite from '../components/pokemon-sprite/index.tsx';
-import getRandomEncounter from '../helpers/pokemon/getRandomEncounter.ts';
+import getRandomEncounter from '../utils/pokemon/getRandomEncounter.ts';
 import PokeballSelector from '../components/pokeball-selector/index.tsx';
 
 function PokemonEncounter() {

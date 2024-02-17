@@ -1,29 +1,14 @@
 import { ReactNode, useContext } from 'react';
-import { EnvironmentContext } from '../../contexts/EnvironmentContext.tsx';
+import { EnvironmentContext } from '../../globals/contexts/EnvironmentContext.tsx';
+import styles from './pokemon-game-container.module.scss';
 
 const PokemonGameContainer = ({ children }: {
 	children: ReactNode
 }) => {
 	const { environment } = useContext(EnvironmentContext);
 	return (
-		<div style={ {
-			position: 'relative',
-			width: '750px',
-			height: '550px',
-			border: '1px solid white',
-		} }>
-			<div style={ {
-				position: 'absolute',
-				width: '100%',
-				height: '100%',
-				padding: 0,
-				margin: 0,
-				background: 'black',
-				zIndex: -1,
-				display: 'grid',
-				gridTemplateColumns: 'repeat(15, 1fr)',
-				gridTemplateRows: 'repeat(11, 1fr)',
-			} }>
+		<div className={ styles.PokemonGameContainerWrapper }>
+			<div className={ styles.EnvironmentGrid }>
 				{ environment.map((
 					row => row.map((tile, index) => (
 						<img key={ index }

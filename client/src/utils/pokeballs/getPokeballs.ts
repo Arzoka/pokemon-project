@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_URL } from '../../constants';
+import { API_URL } from '../../globals/constants';
 import { IItem } from '../../@types/PokeAPI/interfaces/Items/Item.ts';
 import { INamedApiResource } from '../../@types/PokeAPI/interfaces/Utility/NamedApiResourceList.ts';
 import getCatchRateMultiplier from './getCatchRateMultiplier.ts';

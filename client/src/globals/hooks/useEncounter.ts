@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import calculateEncounter from '../helpers/environment/algorithms/calculateEncounters.ts';
+import calculateEncounter from '../../utils/environment/algorithms/calculateEncounters.ts';
 import { PlayerContext } from '../contexts/PlayerContext.tsx';
 import { EnvironmentContext } from '../contexts/EnvironmentContext.tsx';
 

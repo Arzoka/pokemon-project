@@ -1,4 +1,4 @@
-import { EnvironmentTile } from '../@types/CustomPokemonTypes/Environment/tile.ts';
+import { EnvironmentTile } from '../../@types/CustomPokemonTypes/Environment/tile.ts';
 
 class Player {
 	public x: number;
@@ -65,8 +65,6 @@ class Player {
 				break;
 		}
 
-		// console.log(newtile);
-
 		if (!newtile?.walkable) {
 			this.playBorderAudio();
 			setTimeout(() => {
@@ -121,8 +119,8 @@ class Player {
 
 	playBorderAudio() {
 		const audio = new Audio('/resources/environment/wallBump.mp3');
-		audio.play().then(() => {
-			console.log('Wall bump');
+		audio.play().catch((error) => {
+			console.error(error);
 		});
 
 	}

@@ -24,7 +24,6 @@ const useGameLoop = () => {
 	});
 
 	useEffect(() => {
-		console.log(keyState.current);
 		console.log('game loop useEffect triggered');
 
 		const handleKeyDown = (e: KeyboardEvent) => {
@@ -37,8 +36,6 @@ const useGameLoop = () => {
 					};
 				}
 			}
-
-			console.log(e.key.toLowerCase());
 
 			keyState.current = {
 				...keyState.current,

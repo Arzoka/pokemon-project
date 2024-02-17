@@ -1,4 +1,4 @@
-import { EnvironmentTile } from '../@types/CustomPokemonTypes/Environment/tile.ts';
+import { EnvironmentTile } from '../../@types/CustomPokemonTypes/Environment/tile.ts';
 
 const AVAILABLE_TILES: EnvironmentTile[] = [
 	{

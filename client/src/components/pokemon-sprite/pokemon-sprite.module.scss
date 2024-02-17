@@ -1,0 +1,36 @@
+.PokemonSpriteContainer {
+  position: relative;
+  width: 5em;
+  aspect-ratio: 1/1;
+
+  .ShinyAnimationSprite {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    object-fit: contain;
+    transition: translate 0.05s ease-in-out;
+  }
+
+  .PokeballSprite {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    object-fit: contain;
+    transition: translate 0.05s ease-in-out;
+  }
+
+  .PokemonSprite {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    object-fit: contain;
+    transition: translate 0.05s ease-in-out;
+  }
+
+  .HeldItemSprite {
+    position: absolute;
+    width: 50%;
+    bottom: 0;
+    right: 0;
+  }
+}

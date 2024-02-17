@@ -1,7 +1,7 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from 'react';
 import { EnvironmentContext } from './EnvironmentContext.tsx';
 import Player from '../entities/Player.ts';
-import { IPlayer } from '../@types/CustomPokemonTypes/Entities/Player.ts';
+import { IPlayer } from '../../@types/CustomPokemonTypes/Entities/Player.ts';
 
 interface PlayerContext {
 	Player: IPlayer | null;

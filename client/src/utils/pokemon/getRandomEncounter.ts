@@ -7,7 +7,7 @@ import getCaptureRate from './getCaptureRate.ts';
 import calculatePokemonHP from './algorithms/calculatePokemonHP.ts';
 import calculatePokemonStat from './algorithms/calculatePokemonStat.ts';
 import getRarityType from './getRarityType.ts';
-import { API_URL } from '../../constants/index.ts';
+import { API_URL } from '../../globals/constants/index.ts';
 import generateEVs from './algorithms/generateEVs.ts';
 import generateIVs from './algorithms/generateIVs.ts';
 

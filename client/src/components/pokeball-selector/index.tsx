@@ -1,8 +1,9 @@
 import { IReceivedPokeball } from '../../@types/CustomPokemonTypes/Pokeballs/IPokeball.ts';
 import React, { useContext } from 'react';
-import attemptCatch from '../../helpers/pokemon/attemptCatch.ts';
+import attemptCatch from '../../utils/pokemon/attemptCatch.ts';
 import { IRandomPokemonEncounter } from '../../@types/CustomPokemonTypes/Encounters/RandomEncounter.ts';
-import { EnvironmentContext } from '../../contexts/EnvironmentContext.tsx';
+import { EnvironmentContext } from '../../globals/contexts/EnvironmentContext.tsx';
+import styles from './pokeball-selector.module.scss';
 
 interface PokeballSelectorProps {
 	pokeballs: IReceivedPokeball[];
@@ -53,17 +54,7 @@ const PokeballSelector: React.FC<PokeballSelectorProps> = ({
 
 	return (
 		<div
-			style={ {
-				position: 'absolute',
-				width: '100%',
-				left: 0,
-				bottom: 0,
-				padding: '1rem',
-				display: 'flex',
-				flexDirection: 'column',
-				alignItems: 'center',
-				gap: '0.75rem',
-			} }
+			className={ styles.PokeballSelectorContainer }
 		>
 			<div style={ {
 				width: '100%',

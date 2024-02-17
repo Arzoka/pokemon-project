@@ -1,6 +1,6 @@
-import getRandomEnvironment from '../helpers/environment/getRandomEnvironment.ts';
+import getRandomEnvironment from '../../utils/environment/getRandomEnvironment.ts';
 import { createContext, ReactNode, useState } from 'react';
-import { EnvironmentTile } from '../@types/CustomPokemonTypes/Environment/tile.ts';
+import { EnvironmentTile } from '../../@types/CustomPokemonTypes/Environment/tile.ts';
 
 type EncounterChecker = () => boolean;
 
