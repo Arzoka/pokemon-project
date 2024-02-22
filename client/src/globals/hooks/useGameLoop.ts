@@ -7,7 +7,11 @@ const useGameLoop = () => {
 		Player,
 		movePlayer,
 	} = useContext(PlayerContext);
-	const { currentEncounter } = useContext(EnvironmentContext);
+	const {
+		currentEncounter,
+		music,
+		setMusic,
+	} = useContext(EnvironmentContext);
 	const activeLoop = useRef<any>();
 	const keyState = useRef<{
 		[key: string]: boolean
@@ -22,6 +26,15 @@ const useGameLoop = () => {
 		's': false,
 		'shift': false,
 	});
+
+	useEffect(() => {
+		if (!currentEncounter && music !== 'Route1Music') {
+			setMusic('Route1Music');
+		}
+		if (currentEncounter && music === 'Route1Music') {
+			setMusic('');
+		}
+	}, [currentEncounter]);
 
 	useEffect(() => {
 		console.log('game loop useEffect triggered');

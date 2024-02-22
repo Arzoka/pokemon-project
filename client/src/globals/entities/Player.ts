@@ -118,7 +118,7 @@ class Player {
 	}
 
 	playBorderAudio() {
-		const audio = new Audio('/resources/environment/wallBump.mp3');
+		const audio = new Audio('/resources/sound/fx/wallBump.mp3');
 		audio.play().catch((error) => {
 			console.error(error);
 		});

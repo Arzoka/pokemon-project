@@ -1,26 +1,27 @@
-import { useEffect } from 'react';
-import { IRandomPokemonEncounter } from '../../@types/CustomPokemonTypes/Encounters/RandomEncounter.ts';
+import { useContext, useEffect } from 'react';
+import { EncounterContext } from '../contexts/EncounterContext.tsx';
 
 interface UsePokemonSpriteProps {
-	pokemon: IRandomPokemonEncounter;
-	attemptingCatch: boolean;
 	setPlayingAudio: (playing: boolean) => void;
 	setPlayingShinyAudio: (playing: boolean) => void;
 }
 
 const usePokemonSprite = (props: UsePokemonSpriteProps) => {
 	const {
-		pokemon,
+		Encounter: pokemon,
 		attemptingCatch,
+	} = useContext(EncounterContext);
+	const {
 		setPlayingAudio,
 		setPlayingShinyAudio,
 	} = props;
+
 	useEffect(() => {
-		if (pokemon.cry && !pokemon.caught && !attemptingCatch) {
-			const audio = new Audio(pokemon.cry);
+		if (pokemon?.cry && !pokemon?.caught && !attemptingCatch) {
+			const audio = new Audio(pokemon?.cry);
 			audio.addEventListener('ended', () => {
 				setPlayingAudio(false);
-				if (pokemon.shiny) {
+				if (pokemon?.shiny) {
 					const shinyAudio = new Audio('resources/pokemon/ShinySparkleSound.ogg');
 					shinyAudio.addEventListener('ended', () => {
 						setPlayingShinyAudio(false);

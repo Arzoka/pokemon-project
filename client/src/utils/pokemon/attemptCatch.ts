@@ -1,9 +1,11 @@
 import calculatePokemonCatch from './algorithms/calculatePokemonCatch.ts';
 import { IRandomPokemonEncounter } from '../../@types/CustomPokemonTypes/Encounters/RandomEncounter.ts';
 import { IReceivedPokeball } from '../../@types/CustomPokemonTypes/Pokeballs/IPokeball.ts';
-import React from 'react';
 
-function attemptCatch(encounter: IRandomPokemonEncounter, pokeball: IReceivedPokeball, setAttemptingCatch: React.Dispatch<React.SetStateAction<boolean>>, setCurrentEncounter: (currentEncounter: boolean) => void) {
+function attemptCatch(encounter: IRandomPokemonEncounter | null, pokeball: IReceivedPokeball, setAttemptingCatch: (attemptingCatch: boolean) => void, setCurrentEncounter: (currentEncounter: boolean) => void) {
+	if (!encounter) {
+		return;
+	}
 	const catchTime = Math.random() * 3000 + 1000;
 
 	setAttemptingCatch(true);

@@ -1,28 +1,31 @@
 import { IReceivedPokeball } from '../../@types/CustomPokemonTypes/Pokeballs/IPokeball.ts';
 import React, { useContext } from 'react';
 import attemptCatch from '../../utils/pokemon/attemptCatch.ts';
-import { IRandomPokemonEncounter } from '../../@types/CustomPokemonTypes/Encounters/RandomEncounter.ts';
 import { EnvironmentContext } from '../../globals/contexts/EnvironmentContext.tsx';
 import styles from './pokeball-selector.module.scss';
+import { EncounterContext } from '../../globals/contexts/EncounterContext.tsx';
 
 interface PokeballSelectorProps {
 	pokeballs: IReceivedPokeball[];
 	currentPokeball: IReceivedPokeball | null;
 	setCurrentPokeball: React.Dispatch<React.SetStateAction<IReceivedPokeball | null>>;
-	attemptingCatch: boolean;
-	setAttemptingCatch: React.Dispatch<React.SetStateAction<boolean>>;
-	encounter: IRandomPokemonEncounter;
 }
 
 const PokeballSelector: React.FC<PokeballSelectorProps> = ({
 	pokeballs,
 	currentPokeball,
 	setCurrentPokeball,
-	attemptingCatch,
-	setAttemptingCatch,
-	encounter,
 }) => {
-	const { setCurrentEncounter } = useContext(EnvironmentContext);
+	const {
+		setCurrentEncounter,
+		setMusic,
+	} = useContext(EnvironmentContext);
+
+	const {
+		Encounter,
+		attemptingCatch,
+		setAttemptingCatch,
+	} = useContext(EncounterContext);
 
 	function handlePokeballChange(direction: string) {
 		if (!currentPokeball) {
@@ -112,6 +115,7 @@ const PokeballSelector: React.FC<PokeballSelectorProps> = ({
 					paddingBlock: '0.5em',
 				} } onClick={ () => {
 					setCurrentEncounter(false);
+					setMusic('Route1Music');
 				} }
 				>
 					Run
@@ -119,7 +123,7 @@ const PokeballSelector: React.FC<PokeballSelectorProps> = ({
 				<button style={ {
 					width: '100px',
 					paddingBlock: '0.5em',
-				} } onClick={ () => !encounter.caught && attemptCatch(encounter, currentPokeball, setAttemptingCatch, setCurrentEncounter) }>
+				} } onClick={ () => !Encounter?.caught && attemptCatch(Encounter, currentPokeball, setAttemptingCatch, setCurrentEncounter) }>
 					Catch
 				</button>
 			</div>
