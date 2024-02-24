@@ -31,9 +31,11 @@ export const useGetEncounter = (props: useGetEncounterProps) => {
 				}
 				if (encounter) {
 					setEncounter(encounter);
-					if (encounter.rarity_type in ['legendary', 'mythical']) {
+					if (['legendary', 'mythical'].includes(encounter.rarity_type)) {
+						console.log('LegendaryMusic');
 						setMusic('LegendaryMusic');
 					} else {
+						console.log('WildPokemonMusic');
 						setMusic('WildPokemonMusic');
 					}
 				}

@@ -6,7 +6,7 @@ import useGameLoop from '../globals/hooks/useGameLoop.ts';
 import { EnvironmentContext } from '../globals/contexts/EnvironmentContext.tsx';
 import useEncounter from '../globals/hooks/useEncounter.ts';
 
-function App() {
+function RandomEnvironment() {
 	const {
 		currentEncounter,
 	} = useContext(EnvironmentContext);
@@ -29,4 +29,4 @@ function App() {
 
 }
 
-export default App;
+export default RandomEnvironment;
