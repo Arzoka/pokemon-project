@@ -3,7 +3,9 @@ import fetch from 'cross-fetch';
 import { INamedApiResourceList } from '../interfaces/Utility/NamedApiResourceList';
 import { Endpoint, EndpointParam } from './Endpoint';
 
-export type NamedEndpointParam = EndpointParam | string;
+export type NamedEndpointParam =
+	EndpointParam
+	| string;
 
 const BASE_URI = 'https://pokeapi.co/api/v2';
 
@@ -11,8 +13,8 @@ export class NamedEndpoint<T> extends Endpoint<T> {
 	declare protected _list: INamedApiResourceList<T>;
 	private _nameMap: Map<string, number>;
 
-	constructor(resource: string) {
-		super(resource);
+	constructor( resource: string ) {
+		super( resource );
 		this._nameMap = new Map<string, number>();
 	}
 
@@ -21,14 +23,14 @@ export class NamedEndpoint<T> extends Endpoint<T> {
 	 * @param {NamedEndpointParam} param - The name or ID of the resource to retrieve from cache
 	 * @returns {?<T>}
 	 */
-	public get(param: NamedEndpointParam): T | undefined {
-		if (typeof param === 'number') {
-			return this.cache.get(param);
+	public get( param: NamedEndpointParam ): T | undefined {
+		if ( typeof param === 'number' ) {
+			return this.cache.get( param );
 		}
 		const paramName = param.toLowerCase();
-		const mappedValue = this._nameMap.get(paramName);
-		if (mappedValue !== undefined) {
-			return this.cache.get(mappedValue);
+		const mappedValue = this._nameMap.get( paramName );
+		if ( mappedValue !== undefined ) {
+			return this.cache.get( mappedValue );
 		}
 
 		return undefined;
@@ -39,11 +41,11 @@ export class NamedEndpoint<T> extends Endpoint<T> {
 	 * @param {NamedEndpointParam} param - The name orcID of the resource to fetch
 	 * @returns {Promise}
 	 */
-	public async fetch(param: NamedEndpointParam): Promise<T> {
+	public async fetch( param: NamedEndpointParam ): Promise<T> {
 		param = typeof param === 'string' ? param.toLowerCase() : param;
 
-		const data = await fetch(`${ BASE_URI }/${ this.resource }/${ param }`).then(res => res.json());
-		this._cache(data);
+		const data = await fetch( `${ BASE_URI }/${ this.resource }/${ param }` ).then( res => res.json() );
+		this._cache( data );
 		return data;
 	}
 
@@ -52,8 +54,8 @@ export class NamedEndpoint<T> extends Endpoint<T> {
 	 * @param {EndpointParam} param - The ID of the resource to resolve
 	 * @returns {Promise<T>}
 	 */
-	public async resolve(param: NamedEndpointParam): Promise<T> {
-		return this.get(param) || this.fetch(param);
+	public async resolve( param: NamedEndpointParam ): Promise<T> {
+		return this.get( param ) || this.fetch( param );
 	}
 
 	/**
@@ -62,9 +64,9 @@ export class NamedEndpoint<T> extends Endpoint<T> {
 	 * @param {offset} [offset=0]
 	 * @returns {Promise<NamedApiResourceList<T>>}
 	 */
-	public async list(limit: number = 20, offset: number = 0): Promise<INamedApiResourceList<T>> {
-		if (this._list) {
-			const results = this._list.results.slice(offset, limit);
+	public async list( limit: number = 20, offset: number = 0 ): Promise<INamedApiResourceList<T>> {
+		if ( this._list ) {
+			const results = this._list.results.slice( offset, limit );
 			const {
 				count,
 				next,
@@ -78,11 +80,11 @@ export class NamedEndpoint<T> extends Endpoint<T> {
 			};
 		}
 
-		const params = new URLSearchParams({
+		const params = new URLSearchParams( {
 			limit: `${ limit }`,
 			offset: `${ offset }`,
-		});
-		return fetch(`${ BASE_URI }/${ this.resource }?${ params }`).then(res => res.json());
+		} );
+		return fetch( `${ BASE_URI }/${ this.resource }?${ params }` ).then( res => res.json() );
 	}
 
 	/**
@@ -91,25 +93,25 @@ export class NamedEndpoint<T> extends Endpoint<T> {
 	 * @param {boolean} [cache=true] - If the result should be cahced in-memory
 	 * @returns {Promise<NamedApiResourceList<T>>}
 	 */
-	public async listAll(cache: boolean = true): Promise<INamedApiResourceList<T>> {
-		if (this._list) {
+	public async listAll( cache: boolean = true ): Promise<INamedApiResourceList<T>> {
+		if ( this._list ) {
 			return this._list;
 		}
 
-		const { count } = await fetch(`${ BASE_URI }/${ this.resource }?limit=1`).then(res => res.json());
-		const data = await fetch(`${ BASE_URI }/${ this.resource }?limit=${ count }`).then(res => res.json());
-		if (cache) {
+		const { count } = await fetch( `${ BASE_URI }/${ this.resource }?limit=1` ).then( res => res.json() );
+		const data = await fetch( `${ BASE_URI }/${ this.resource }?limit=${ count }` ).then( res => res.json() );
+		if ( cache ) {
 			this._list = data;
 		}
 
 		return data;
 	}
 
-	public _cache(data: T & {
+	public _cache( data: T & {
 		id: number;
 		name: string
-	}) {
-		this.cache.set(data.id, data);
-		this._nameMap.set(data.name, data.id);
+	} ) {
+		this.cache.set( data.id, data );
+		this._nameMap.set( data.name, data.id );
 	}
 }

@@ -12,7 +12,7 @@ export interface IPlayer {
 	direction: string;
 	canEncounter: boolean;
 	isRunning: boolean;
-	movePlayer: (direction: string) => void;
+	movePlayer: ( direction: string ) => void;
 	updatePlayer: () => void;
 	stepSize: number;
 	speed: number;

@@ -6,11 +6,9 @@ function generateIVs() {
 		[key: string]: number
 	} = {};
 
-	values.forEach(value => {
-		IVs[value] = Math.floor(Math.random() * (
-			maxIV + 1
-		));
-	});
+	values.forEach( value => {
+		IVs[value] = Math.floor( Math.random() * ( maxIV + 1 ) );
+	} );
 
 	return IVs;
 }

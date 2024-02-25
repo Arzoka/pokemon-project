@@ -1,17 +1,16 @@
 import { EnvironmentContextProvider } from '../contexts/EnvironmentContext.tsx';
 import { PlayerContextProvider } from '../contexts/PlayerContext.tsx';
 import { EncounterContextProvider } from '../contexts/EncounterContext.tsx';
-import RandomEnvironment from '../../pages/random-environment.tsx';
+import WildGameScreen from '../../pages/wild-game-screen.tsx';
 
 const WildStack = () => (
 	<EnvironmentContextProvider>
 		<PlayerContextProvider>
 			<EncounterContextProvider>
-				<RandomEnvironment />
+				<WildGameScreen />
 			</EncounterContextProvider>
 		</PlayerContextProvider>
-	</EnvironmentContextProvider>
-);
+	</EnvironmentContextProvider> );
 
 export default WildStack;
 

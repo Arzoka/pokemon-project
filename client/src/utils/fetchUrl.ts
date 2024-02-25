@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-async function fetchUrl(url: string) {
+async function fetchUrl( url: string ) {
 	try {
-		const response = await axios.get(url);
+		const response = await axios.get( url );
 		return response.data;
-	} catch (error) {
-		console.error('Error fetching item data:', error);
+	} catch ( error ) {
+		console.error( 'Error fetching item data:', error );
 	}
 }
 

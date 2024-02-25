@@ -4,6 +4,7 @@ import attemptCatch from '../../utils/pokemon/attemptCatch.ts';
 import { EnvironmentContext } from '../../globals/contexts/EnvironmentContext.tsx';
 import styles from './pokeball-selector.module.scss';
 import { EncounterContext } from '../../globals/contexts/EncounterContext.tsx';
+import { InventoryContext } from '../../globals/contexts/InventoryContext.tsx';
 
 interface PokeballSelectorProps {
 	pokeballs: IReceivedPokeball[];
@@ -11,47 +12,49 @@ interface PokeballSelectorProps {
 	setCurrentPokeball: React.Dispatch<React.SetStateAction<IReceivedPokeball | null>>;
 }
 
-const PokeballSelector: React.FC<PokeballSelectorProps> = ({
+const PokeballSelector: React.FC<PokeballSelectorProps> = ( {
 	pokeballs,
 	currentPokeball,
 	setCurrentPokeball,
-}) => {
+} ) => {
 	const {
 		setCurrentEncounter,
 		setMusic,
-	} = useContext(EnvironmentContext);
+	} = useContext( EnvironmentContext );
+
+	const { setInventory } = useContext( InventoryContext );
 
 	const {
 		Encounter,
 		attemptingCatch,
 		setAttemptingCatch,
-	} = useContext(EncounterContext);
+	} = useContext( EncounterContext );
 
-	function handlePokeballChange(direction: string) {
-		if (!currentPokeball) {
+	function handlePokeballChange( direction: string ) {
+		if ( !currentPokeball ) {
 			return;
 		}
 
-		const currentIndex = pokeballs.indexOf(currentPokeball);
+		const currentIndex = pokeballs.indexOf( currentPokeball );
 
-		if (direction === 'left') {
-			if (currentIndex === 0) {
-				setCurrentPokeball(pokeballs[pokeballs.length - 1]);
+		if ( direction === 'left' ) {
+			if ( currentIndex === 0 ) {
+				setCurrentPokeball( pokeballs[pokeballs.length - 1] );
 			} else {
-				setCurrentPokeball(pokeballs[currentIndex - 1]);
+				setCurrentPokeball( pokeballs[currentIndex - 1] );
 			}
 		}
 
-		if (direction === 'right') {
-			if (currentIndex === pokeballs.length - 1) {
-				setCurrentPokeball(pokeballs[0]);
+		if ( direction === 'right' ) {
+			if ( currentIndex === pokeballs.length - 1 ) {
+				setCurrentPokeball( pokeballs[0] );
 			} else {
-				setCurrentPokeball(pokeballs[currentIndex + 1]);
+				setCurrentPokeball( pokeballs[currentIndex + 1] );
 			}
 		}
 	}
 
-	if (!currentPokeball || attemptingCatch) {
+	if ( !currentPokeball || attemptingCatch ) {
 		return null;
 	}
 
@@ -66,7 +69,7 @@ const PokeballSelector: React.FC<PokeballSelectorProps> = ({
 				alignItems: 'center',
 				justifyContent: 'space-between',
 			} }>
-				<button onClick={ () => handlePokeballChange('left') } style={ {
+				<button onClick={ () => handlePokeballChange( 'left' ) } style={ {
 					width: '100px',
 					paddingBlock: '0.5em',
 				} }>
@@ -96,9 +99,8 @@ const PokeballSelector: React.FC<PokeballSelectorProps> = ({
 						>
 							{ currentPokeball.description }
 						</p>
-					</div>
-				) : null }
-				<button onClick={ () => handlePokeballChange('right') } style={ {
+					</div> ) : null }
+				<button onClick={ () => handlePokeballChange( 'right' ) } style={ {
 					width: '100px',
 					paddingBlock: '0.5em',
 				} }>
@@ -114,8 +116,8 @@ const PokeballSelector: React.FC<PokeballSelectorProps> = ({
 					width: '100px',
 					paddingBlock: '0.5em',
 				} } onClick={ () => {
-					setCurrentEncounter(false);
-					setMusic('Route1Music');
+					setCurrentEncounter( false );
+					setMusic( 'Route1Music' );
 				} }
 				>
 					Run
@@ -123,12 +125,11 @@ const PokeballSelector: React.FC<PokeballSelectorProps> = ({
 				<button style={ {
 					width: '100px',
 					paddingBlock: '0.5em',
-				} } onClick={ () => !Encounter?.caught && attemptCatch(Encounter, currentPokeball, setAttemptingCatch, setCurrentEncounter) }>
+				} } onClick={ () => !Encounter?.caught && attemptCatch( Encounter, currentPokeball, setAttemptingCatch, setCurrentEncounter, setInventory ) }>
 					Catch
 				</button>
 			</div>
-		</div>
-	);
+		</div> );
 };
 
 export default PokeballSelector;

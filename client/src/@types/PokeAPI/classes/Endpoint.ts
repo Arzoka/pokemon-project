@@ -1,6 +1,5 @@
 import { Collection } from '@discordjs/collection';
 import URLSearchParams from '@ungap/url-search-params';
-import fetch from 'cross-fetch';
 import { IApiResourceList } from '../interfaces/Utility/ApiResourceList';
 
 type EndpointParam = number;
@@ -12,7 +11,7 @@ class Endpoint<T> {
 	protected _list: IApiResourceList<T>;
 	protected cache: Collection<number, T>;
 
-	constructor(resource: string) {
+	constructor( resource: string ) {
 		this.resource = resource;
 		this.cache = new Collection<number, T>();
 	}
@@ -22,8 +21,8 @@ class Endpoint<T> {
 	 * @param {EndpointParam} param - The ID of the resource to retrieve from cache
 	 * @returns {?<T>}
 	 */
-	public get(param: EndpointParam): T | undefined {
-		return this.cache.get(param);
+	public get( param: EndpointParam ): T | undefined {
+		return this.cache.get( param );
 	}
 
 	/**
@@ -31,8 +30,8 @@ class Endpoint<T> {
 	 * @param {EndpointParam} param - The ID of the resource to resolve
 	 * @returns {Promise<T>}
 	 */
-	public async resolve(param: EndpointParam): Promise<T> {
-		return this.get(param) || this.fetch(param);
+	public async resolve( param: EndpointParam ): Promise<T> {
+		return this.get( param ) || this.fetch( param );
 	}
 
 	/**
@@ -40,9 +39,9 @@ class Endpoint<T> {
 	 * @param {EndpointParam} param - The ID of the item to fetch
 	 * @returns {Promise<T>}
 	 */
-	public async fetch(param: EndpointParam): Promise<T> {
-		const data = await fetch(`${ BASE_URI }/${ this.resource }/${ param }`).then(res => res.json());
-		this._cache(data);
+	public async fetch( param: EndpointParam ): Promise<T> {
+		const data = await fetch( `${ BASE_URI }/${ this.resource }/${ param }` ).then( res => res.json() );
+		this._cache( data );
 		return data;
 	}
 
@@ -52,9 +51,9 @@ class Endpoint<T> {
 	 * @param {offset} [offset=0]
 	 * @returns {Promise<NamedApiResourceList<T>>}
 	 */
-	public async list(limit: number = 20, offset: number = 0): Promise<IApiResourceList<T>> {
-		if (this._list) {
-			const results = this._list.results.slice(offset, limit);
+	public async list( limit: number = 20, offset: number = 0 ): Promise<IApiResourceList<T>> {
+		if ( this._list ) {
+			const results = this._list.results.slice( offset, limit );
 			const {
 				count,
 				next,
@@ -68,11 +67,11 @@ class Endpoint<T> {
 			};
 		}
 
-		const params = new URLSearchParams({
+		const params = new URLSearchParams( {
 			limit: `${ limit }`,
 			offset: `${ offset }`,
-		});
-		return fetch(`${ BASE_URI }/${ this.resource }?${ params }`).then(res => res.json());
+		} );
+		return fetch( `${ BASE_URI }/${ this.resource }?${ params }` ).then( res => res.json() );
 	}
 
 	/**
@@ -81,24 +80,24 @@ class Endpoint<T> {
 	 * @param {boolean} [cache=true] - If the result should be cahced in-memory
 	 * @returns {Promise<NamedApiResourceList<T>>}
 	 */
-	public async listAll(cache: boolean = true): Promise<IApiResourceList<T>> {
-		if (this._list) {
+	public async listAll( cache: boolean = true ): Promise<IApiResourceList<T>> {
+		if ( this._list ) {
 			return this._list;
 		}
 
-		const { count } = await fetch(`${ BASE_URI }/${ this.resource }?limit=1`).then(res => res.json());
-		const data = await fetch(`${ BASE_URI }/${ this.resource }?limit=${ count }`).then(res => res.json());
-		if (cache) {
+		const { count } = await fetch( `${ BASE_URI }/${ this.resource }?limit=1` ).then( res => res.json() );
+		const data = await fetch( `${ BASE_URI }/${ this.resource }?limit=${ count }` ).then( res => res.json() );
+		if ( cache ) {
 			this._list = data;
 		}
 
 		return data;
 	}
 
-	public _cache(data: {
+	public _cache( data: {
 		id: number
-	} & T) {
-		this.cache.set(data.id, data);
+	} & T ) {
+		this.cache.set( data.id, data );
 	}
 }
 

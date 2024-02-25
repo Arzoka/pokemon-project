@@ -6,16 +6,16 @@ const useGameLoop = () => {
 	const {
 		Player,
 		movePlayer,
-	} = useContext(PlayerContext);
+	} = useContext( PlayerContext );
 	const {
 		currentEncounter,
 		music,
 		setMusic,
-	} = useContext(EnvironmentContext);
+	} = useContext( EnvironmentContext );
 	const activeLoop = useRef<any>();
 	const keyState = useRef<{
 		[key: string]: boolean
-	}>({
+	}>( {
 		'arrow-left': false,
 		'arrow-right': false,
 		'arrow-up': false,
@@ -25,24 +25,24 @@ const useGameLoop = () => {
 		'w': false,
 		's': false,
 		'shift': false,
-	});
+	} );
 
-	useEffect(() => {
-		if (!currentEncounter && music !== 'Route1Music') {
-			setMusic('Route1Music');
+	useEffect( () => {
+		if ( !currentEncounter && music !== 'Route1Music' ) {
+			setMusic( 'Route1Music' );
 		}
-		if (currentEncounter && music === 'Route1Music') {
-			setMusic('');
+		if ( currentEncounter && music === 'Route1Music' ) {
+			setMusic( '' );
 		}
-	}, [currentEncounter]);
+	}, [currentEncounter] );
 
-	useEffect(() => {
-		console.log('game loop useEffect triggered');
+	useEffect( () => {
+		console.log( 'game loop useEffect triggered' );
 
-		const handleKeyDown = (e: KeyboardEvent) => {
+		const handleKeyDown = ( e: KeyboardEvent ) => {
 			// Without this we get cursed diagonal moving lol
-			for (const key in keyState.current) {
-				if (e.key.toLowerCase() !== 'shift' && key !== 'shift') {
+			for ( const key in keyState.current ) {
+				if ( e.key.toLowerCase() !== 'shift' && key !== 'shift' ) {
 					keyState.current = {
 						...keyState.current,
 						[key]: key === e.key.toLowerCase(),
@@ -56,49 +56,49 @@ const useGameLoop = () => {
 			};
 		};
 
-		const handleKeyUp = (e: KeyboardEvent) => {
+		const handleKeyUp = ( e: KeyboardEvent ) => {
 			keyState.current = {
 				...keyState.current,
 				[e.key.toLowerCase()]: false,
 			};
 		};
 
-		window.addEventListener('keydown', handleKeyDown, true);
-		window.addEventListener('keyup', handleKeyUp, true);
+		window.addEventListener( 'keydown', handleKeyDown, true );
+		window.addEventListener( 'keyup', handleKeyUp, true );
 
 		return () => {
-			window.removeEventListener('keydown', handleKeyDown, true);
-			window.removeEventListener('keyup', handleKeyUp, true);
+			window.removeEventListener( 'keydown', handleKeyDown, true );
+			window.removeEventListener( 'keyup', handleKeyUp, true );
 		};
-	}, []);
+	}, [] );
 
-	useEffect(() => {
+	useEffect( () => {
 		const gameLoop = () => {
-			if (!Player) {
+			if ( !Player ) {
 				return;
 			}
 
-			keyState.current['arrow-left'] || keyState.current['a'] && movePlayer('left');
-			keyState.current['arrow-right'] || keyState.current['d'] && movePlayer('right');
-			keyState.current['arrow-up'] || keyState.current['w'] && movePlayer('up');
-			keyState.current['arrow-down'] || keyState.current['s'] && movePlayer('down');
+			keyState.current['arrow-left'] || keyState.current['a'] && movePlayer( 'left' );
+			keyState.current['arrow-right'] || keyState.current['d'] && movePlayer( 'right' );
+			keyState.current['arrow-up'] || keyState.current['w'] && movePlayer( 'up' );
+			keyState.current['arrow-down'] || keyState.current['s'] && movePlayer( 'down' );
 
 			Player.isRunning = keyState.current['shift'];
 
-			activeLoop.current = setTimeout(gameLoop, keyState.current['shift'] ? 100 : 200);
+			activeLoop.current = setTimeout( gameLoop, keyState.current['shift'] ? 100 : 200 );
 		};
 
-		if (currentEncounter) {
-			clearTimeout(activeLoop.current);
+		if ( currentEncounter ) {
+			clearTimeout( activeLoop.current );
 		} else {
-			if (!Player) {
+			if ( !Player ) {
 				return;
 			}
-			activeLoop.current = setTimeout(gameLoop, keyState.current['shift'] ? 100 : 200);
+			activeLoop.current = setTimeout( gameLoop, keyState.current['shift'] ? 100 : 200 );
 		}
 
-		return () => clearTimeout(activeLoop.current);
-	}, [Player, currentEncounter, movePlayer]);
+		return () => clearTimeout( activeLoop.current );
+	}, [Player, currentEncounter, movePlayer] );
 
 };
 

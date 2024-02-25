@@ -10,14 +10,18 @@ const StateContext = createContext<StateContextType>( {
 	setState: () => {},
 } );
 
-const StateWrapper = ( { children }: { children: ReactNode } ) => {
-	const [ state, setState ] = useState( 'onboarding' );
+const StateWrapper = ( { children }: {
+	children: ReactNode
+} ) => {
+	const [state, setState] = useState( 'onboarding' );
 
 	return (
-		<StateContext.Provider value={{ state, setState }}>
-			{children}
-		</StateContext.Provider>
-	);
+		<StateContext.Provider value={ {
+			state,
+			setState,
+		} }>
+			{ children }
+		</StateContext.Provider> );
 };
 
 export { StateContext, StateWrapper };

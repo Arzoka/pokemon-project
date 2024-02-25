@@ -1,0 +1,64 @@
+.ModalContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+
+  .Modal {
+    height: 65dvh;
+    aspect-ratio: 16/9;
+    object-fit: contain;
+    background-color: #b6ef9c;
+    padding: 20px;
+    border-radius: 10px;
+    border: 5px solid #ccc;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    position: relative;
+    z-index: 10001;
+    display: flex;
+  }
+}
+
+.PokemonSpriteContainer {
+  position: relative;
+  width: 10em;
+  aspect-ratio: 1/1;
+
+  .ShinyAnimationSprite {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    object-fit: contain;
+    transition: translate 0.05s ease-in-out;
+  }
+
+  .PokeballSprite {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    object-fit: contain;
+    transition: translate 0.05s ease-in-out;
+  }
+
+  .PokemonSprite {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    object-fit: contain;
+    transition: translate 0.05s ease-in-out;
+  }
+
+  .HeldItemSprite {
+    position: absolute;
+    width: 50%;
+    bottom: 0;
+    right: 0;
+  }
+}
+

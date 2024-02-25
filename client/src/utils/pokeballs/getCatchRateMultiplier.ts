@@ -1,5 +1,5 @@
-function getCatchRateMultiplier(pokeball: string) {
-	switch (pokeball) {
+function getCatchRateMultiplier( pokeball: string ) {
+	switch ( pokeball ) {
 		case 'poke-ball':
 			return 1;
 		case 'great-ball':
@@ -17,7 +17,7 @@ function getCatchRateMultiplier(pokeball: string) {
 			// TODO: Sport ball mechanics
 			return 1.5; // specific catch rate for Sport Ball
 		default:
-			console.log('Unknown Poké Ball:', pokeball, 'Defaulting to 1');
+			console.log( 'Unknown Poké Ball:', pokeball, 'Defaulting to 1' );
 			return 1;
 	}
 }

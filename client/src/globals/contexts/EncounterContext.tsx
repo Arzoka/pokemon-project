@@ -3,25 +3,25 @@ import React, { createContext, useState } from 'react';
 
 type EncounterContextType = {
 	Encounter: IRandomPokemonEncounter | null;
-	setEncounter: (encounter: IRandomPokemonEncounter) => void;
+	setEncounter: ( encounter: IRandomPokemonEncounter ) => void;
 	attemptingCatch: boolean;
-	setAttemptingCatch: (attemptingCatch: boolean) => void;
+	setAttemptingCatch: ( attemptingCatch: boolean ) => void;
 }
 
-const EncounterContext = createContext<EncounterContextType>({
+const EncounterContext = createContext<EncounterContextType>( {
 	Encounter: null,
 	setEncounter: () => {
 	},
 	attemptingCatch: false,
 	setAttemptingCatch: () => {
 	},
-});
+} );
 
-const EncounterContextProvider = ({ children }: {
+const EncounterContextProvider = ( { children }: {
 	children: React.ReactNode
-}) => {
-	const [Encounter, setEncounter] = useState<IRandomPokemonEncounter | null>(null);
-	const [attemptingCatch, setAttemptingCatch] = useState(false);
+} ) => {
+	const [Encounter, setEncounter] = useState<IRandomPokemonEncounter | null>( null );
+	const [attemptingCatch, setAttemptingCatch] = useState( false );
 
 	return (
 		<EncounterContext.Provider value={ {
@@ -31,8 +31,7 @@ const EncounterContextProvider = ({ children }: {
 			setAttemptingCatch,
 		} }>
 			{ children }
-		</EncounterContext.Provider>
-	);
+		</EncounterContext.Provider> );
 };
 
 export { EncounterContext, EncounterContextProvider };

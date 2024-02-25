@@ -6,15 +6,15 @@ type EncounterChecker = () => boolean;
 
 interface EnvironmentContextType {
 	currentEncounter: boolean;
-	setCurrentEncounter: (currentEncounter: EncounterChecker | boolean) => void;
+	setCurrentEncounter: ( currentEncounter: EncounterChecker | boolean ) => void;
 	environment: EnvironmentTile[][];
-	setEnvironment: (environment: EnvironmentTile[][]) => void;
+	setEnvironment: ( environment: EnvironmentTile[][] ) => void;
 	music: string;
-	setMusic: (music: string) => void;
+	setMusic: ( music: string ) => void;
 
 }
 
-const EnvironmentContext = createContext<EnvironmentContextType>({
+const EnvironmentContext = createContext<EnvironmentContextType>( {
 	currentEncounter: false,
 	setCurrentEncounter: () => {
 	},
@@ -24,36 +24,36 @@ const EnvironmentContext = createContext<EnvironmentContextType>({
 	music: '',
 	setMusic: () => {
 	},
-});
+} );
 
-const EnvironmentContextProvider = ({ children }: {
+const EnvironmentContextProvider = ( { children }: {
 	children: ReactNode
-}) => {
-	const [currentEncounter, setCurrentEncounter] = useState<boolean>(false);
-	const [environment, setEnvironment] = useState<EnvironmentTile[][]>(getRandomEnvironment());
-	const [music, setMusic] = useState<string>('Route1Music');
+} ) => {
+	const [currentEncounter, setCurrentEncounter] = useState<boolean>( false );
+	const [environment, setEnvironment] = useState<EnvironmentTile[][]>( getRandomEnvironment() );
+	const [music, setMusic] = useState<string>( 'Route1Music' );
 	const playingAudio = useRef<HTMLAudioElement>();
 
-	useEffect(() => {
-		if (playingAudio.current) {
+	useEffect( () => {
+		if ( playingAudio.current ) {
 			playingAudio.current?.remove();
 		}
-		const audio = new Audio(`resources/sound/music/${ music }.mp3`);
+		const audio = new Audio( `resources/sound/music/${ music }.mp3` );
 		audio.volume = 0.3;
 		playingAudio.current = audio;
-		if (!music) {
+		if ( !music ) {
 			return;
 		}
 
 		audio.loop = true;
-		audio.play().catch((error) => {
-			console.error(error);
-		});
+		audio.play().catch( ( error ) => {
+			console.error( error );
+		} );
 
 		return () => {
 			audio.pause();
 		};
-	}, [music]);
+	}, [music] );
 	return (
 		<EnvironmentContext.Provider value={ {
 			currentEncounter,
@@ -64,8 +64,7 @@ const EnvironmentContextProvider = ({ children }: {
 			setMusic,
 		} }>
 			{ children }
-		</EnvironmentContext.Provider>
-	);
+		</EnvironmentContext.Provider> );
 };
 
 export {

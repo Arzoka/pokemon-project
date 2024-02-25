@@ -4,22 +4,22 @@ import styles from './pokemon-sprite.module.scss';
 import usePokemonSprite from '../../globals/hooks/usePokemonSprite.ts';
 import { EncounterContext } from '../../globals/contexts/EncounterContext.tsx';
 
-const PokemonSprite = ({
+const PokemonSprite = ( {
 	pokeball,
 }: {
 	pokeball: IReceivedPokeball | null
-}) => {
-	const [playingAudio, setPlayingAudio] = useState(false);
-	const [playingShinyAudio, setPlayingShinyAudio] = useState(false);
+} ) => {
+	const [playingAudio, setPlayingAudio] = useState( false );
+	const [playingShinyAudio, setPlayingShinyAudio] = useState( false );
 	const {
 		Encounter: pokemon,
 		attemptingCatch,
-	} = useContext(EncounterContext);
+	} = useContext( EncounterContext );
 
-	usePokemonSprite({
+	usePokemonSprite( {
 		setPlayingAudio,
 		setPlayingShinyAudio,
-	});
+	} );
 
 	return pokemon?.caught ? null : (
 		<div className={ styles.PokemonSpriteContainer }>
@@ -31,8 +31,7 @@ const PokemonSprite = ({
 					} }
 					src={ 'resources/pokemon/ShinySparkleAnimation.gif' }
 					alt={ 'Shiny sparkle' }
-				/>
-			) : null }
+				/> ) : null }
 			{ attemptingCatch && pokeball ? (
 				<img
 					className={ styles.PokeballSprite }
@@ -41,8 +40,7 @@ const PokemonSprite = ({
 					} }
 					src={ pokeball.sprite }
 					alt={ `sprite showing catch attempt on ${ pokemon?.name } using ${ pokeball.name }` }
-				/>
-			) : (
+				/> ) : (
 				<img
 					className={ styles.PokemonSprite }
 					style={ {
@@ -50,17 +48,14 @@ const PokemonSprite = ({
 					} }
 					src={ pokemon?.shiny ? pokemon?.sprites.front_shiny : pokemon?.sprites.front_default }
 					alt={ pokemon?.name }
-				/>
-			) }
+				/> ) }
 			{ pokemon?.held_item && !attemptingCatch ? (
 				<img
 					className={ styles.HeldItemSprite }
 					src={ pokemon?.held_item?.sprites?.default }
 					alt={ pokemon?.held_item.name }
-				/>
-			) : null }
-		</div>
-	);
+				/> ) : null }
+		</div> );
 };
 
 export default PokemonSprite;

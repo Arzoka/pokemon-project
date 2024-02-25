@@ -2,8 +2,7 @@ import StartScreen from '../../pages/start-screen.tsx';
 
 const OnboardingStack = () => {
 	return (
-		<StartScreen />
-	);
+		<StartScreen /> );
 };
 
 export default OnboardingStack;

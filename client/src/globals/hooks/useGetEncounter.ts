@@ -11,35 +11,33 @@ interface useGetEncounterProps {
 	setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const useGetEncounter = (props: useGetEncounterProps) => {
+export const useGetEncounter = ( props: useGetEncounterProps ) => {
 	const {
 		setPokeballs,
 		setCurrentPokeball,
 		setLoading,
 	} = props;
-	const { setEncounter } = useContext(EncounterContext);
-	const { setMusic } = useContext(EnvironmentContext);
+	const { setEncounter } = useContext( EncounterContext );
+	const { setMusic } = useContext( EnvironmentContext );
 
-	useEffect(() => {
-		(
-			async () => {
+	useEffect( () => {
+		( async () => {
 				const pokeballs = await getPokeballs();
-				const encounter = await getRandomEncounter(setLoading);
-				if (pokeballs) {
-					setPokeballs(pokeballs);
-					setCurrentPokeball(pokeballs[0]);
+				const encounter = await getRandomEncounter( setLoading );
+				if ( pokeballs ) {
+					setPokeballs( pokeballs );
+					setCurrentPokeball( pokeballs[0] );
 				}
-				if (encounter) {
-					setEncounter(encounter);
-					if (['legendary', 'mythical'].includes(encounter.rarity_type)) {
-						console.log('LegendaryMusic');
-						setMusic('LegendaryMusic');
+				if ( encounter ) {
+					setEncounter( encounter );
+					if ( ['legendary', 'mythical'].includes( encounter.rarity_type ) ) {
+						console.log( 'LegendaryMusic' );
+						setMusic( 'LegendaryMusic' );
 					} else {
-						console.log('WildPokemonMusic');
-						setMusic('WildPokemonMusic');
+						console.log( 'WildPokemonMusic' );
+						setMusic( 'WildPokemonMusic' );
 					}
 				}
-			}
-		)();
-	}, []);
+			} )();
+	}, [] );
 };

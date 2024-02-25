@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import PlayerSprite from '../components/player-sprite';
-import PokemonGameContainer from '../components/pokemon-game-container';
+import PlayerSprite from './player-sprite';
+import PokemonGameContainer from './pokemon-game-container';
 import PokemonEncounter from './pokemon-encounter.tsx';
 import useGameLoop from '../globals/hooks/useGameLoop.ts';
 import { EnvironmentContext } from '../globals/contexts/EnvironmentContext.tsx';
@@ -9,23 +9,19 @@ import useEncounter from '../globals/hooks/useEncounter.ts';
 function RandomEnvironment() {
 	const {
 		currentEncounter,
-	} = useContext(EnvironmentContext);
+	} = useContext( EnvironmentContext );
 
 	useEncounter();
 	useGameLoop();
 
-	return (
-		<>
+	return ( <>
 			<PokemonGameContainer>
 				{ currentEncounter ? (
-					<PokemonEncounter />
-				) : (
-					<PlayerSprite />
-				) }
+					<PokemonEncounter /> ) : (
+					<PlayerSprite /> ) }
 			</PokemonGameContainer>
 
-		</>
-	);
+		</> );
 
 }
 

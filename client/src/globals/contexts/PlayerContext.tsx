@@ -6,27 +6,27 @@ import { IPlayer } from '../../@types/CustomPokemonTypes/Entities/Player.ts';
 interface PlayerContext {
 	Player: IPlayer | null;
 	setPlayer: Dispatch<SetStateAction<IPlayer | null>>;
-	movePlayer: (direction: string) => void;
+	movePlayer: ( direction: string ) => void;
 }
 
-const PlayerContext = createContext<PlayerContext>({
+const PlayerContext = createContext<PlayerContext>( {
 	Player: null,
 	setPlayer: () => {
 	},
 	movePlayer: () => {
 	},
-});
+} );
 
-const PlayerContextProvider = ({ children }: {
+const PlayerContextProvider = ( { children }: {
 	children: ReactNode
-}) => {
-	const { environment } = useContext(EnvironmentContext);
-	const [player, setPlayer] = useState<IPlayer | null>(new Player(environment));
+} ) => {
+	const { environment } = useContext( EnvironmentContext );
+	const [player, setPlayer] = useState<IPlayer | null>( new Player( environment ) );
 
-	const movePlayer = (direction: string) => {
-		if (player) {
-			player.movePlayer(direction);
-			setPlayer(new Player(environment, player));
+	const movePlayer = ( direction: string ) => {
+		if ( player ) {
+			player.movePlayer( direction );
+			setPlayer( new Player( environment, player ) );
 		}
 	};
 
@@ -37,8 +37,7 @@ const PlayerContextProvider = ({ children }: {
 			setPlayer,
 		} }>
 			{ children }
-		</PlayerContext.Provider>
-	);
+		</PlayerContext.Provider> );
 };
 
 export {

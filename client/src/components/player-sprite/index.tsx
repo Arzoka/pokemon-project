@@ -3,7 +3,7 @@ import { PlayerContext } from '../../globals/contexts/PlayerContext.tsx';
 import styles from './player-sprite.module.scss';
 
 const PlayerSprite = () => {
-	const { Player } = useContext(PlayerContext);
+	const { Player } = useContext( PlayerContext );
 
 	return (
 		<div
@@ -17,8 +17,7 @@ const PlayerSprite = () => {
 				src={ `resources/characters/player/${ Player?.direction }.png` }
 				alt="player sprite"
 			/>
-		</div>
-	);
+		</div> );
 };
 
 export default PlayerSprite;
