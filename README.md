@@ -1,7 +1,6 @@
 # Socketmon
 
-<<<<<<< HEAD
-Socketmon is a project that I created simply because I wanted to learn more about websockets, and I wanted to work with pokemon
+pokemon-project is a project that I created simply because I wanted to learn more about websockets, and I wanted to work with pokemon
 formulas. The goal is to have a fully working multiplayer pokemon battle system.
 
 ## Current Features
@@ -19,7 +18,3 @@ formulas. The goal is to have a fully working multiplayer pokemon battle system.
 - Add more fun formulas
 - Styling
 - Store userdata in a database (unsure whether it'll be mongodb or mySQL)
-  =======
-  TODO: write readme
-
-> > > > > > > 7ce88f8 (init)
